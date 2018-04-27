@@ -35,12 +35,6 @@ namespace kagv {
             if (Globals.SemiTransparency)
                 Globals.SemiTransparent = Color.FromArgb(Globals.Opacity, Color.WhiteSmoke);
 
-            for (int i = 0; i < _startPos.Count; i++) {
-                _AGVs[i] = new Vehicle(this) {
-                    ID = i
-                };
-            }
-
             Width = (Globals.WidthBlocks + 1) * Globals.BlockSide + Globals.LeftBarOffset - 100;
             Height = (Globals.HeightBlocks + 1) * Globals.BlockSide + Globals.BottomBarOffset +20 ; //+7 for borders
             Size = new Size(Width, Height + Globals.BottomBarOffset);

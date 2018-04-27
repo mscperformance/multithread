@@ -41,7 +41,7 @@ namespace kagv {
             //declares the length of the first 1d array
             _rectangles = new GridBox[Globals.WidthBlocks][];
 
-
+            
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                 //declares the length of the seconds 1d array
                 _rectangles[widthTrav] = new GridBox[Globals.HeightBlocks];

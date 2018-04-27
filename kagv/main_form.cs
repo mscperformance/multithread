@@ -81,7 +81,10 @@ namespace kagv {
                     for (var resultTrav = 0; resultTrav < _AGVs[i].JumpPoints.Count; resultTrav++)
                         try {
                             if (linesToolStripMenuItem.Checked)
-                                _AGVs[i].Paths[resultTrav].DrawLine(_paper);//draw the lines 
+                            {
+                                
+                                _AGVs[i].Paths[resultTrav].DrawLine(_paper, _AGVs[i].LineColor);//draw the lines 
+                            }
                             if (!_isMouseDown)
                                 DrawPoints(_AGVs[i].Paths[resultTrav], i);//show points
                         } catch { }
@@ -294,6 +297,19 @@ namespace kagv {
             //if we change the AGVs value from numeric updown,do the following
             bool removed = false;
             List<GridPos> startPosition = new List<GridPos>();
+
+            Color for1 = Color.BlueViolet;
+            Color for2 = Color.Orange;
+
+            for (int i = 0; i < _startPos.Count; i++)
+            {
+                _AGVs[i] = new Vehicle(this)
+                {
+                    ID = i
+                };
+                if (i == 0) _AGVs[i].LineColor = for1;
+                else _AGVs[i].LineColor = for2;
+            }
 
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++)
                 for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {

@@ -45,16 +45,13 @@ namespace kagv.DLL_source {
             FromY = iFrom.BoxRec.Y + ((Globals.BlockSide / 2) - 1);
             ToX = iTo.BoxRec.X + ((Globals.BlockSide / 2) - 1);
             ToY = iTo.BoxRec.Y + ((Globals.BlockSide / 2) - 1);
-            Pen = new Pen( Color.BlueViolet)
-            {
-                Width =  1
-            };
-           
-
-
         }
 
-        public void DrawLine(Graphics iPaper) {
+        public void DrawLine(Graphics iPaper,Color color) {
+            Pen = new Pen(color)
+            {
+                Width = 2
+            };
             iPaper.DrawLine(Pen, FromX, FromY, ToX, ToY);
 
         }

@@ -98,10 +98,19 @@ namespace kagv {
                             currentLinePoints[i].Y = sideY;
 
                             if (dotsToolStripMenuItem.Checked) {
-                                using (SolidBrush br = new SolidBrush(Color.BlueViolet))
-                                    _paper.FillEllipse(br, currentLinePoints[i].X - 3,
-                                        currentLinePoints[i].Y - 3,
-                                        5, 5);
+                                if (agvIndex == 0)
+                                {
+                                    using (SolidBrush br = new SolidBrush(Color.BlueViolet))
+                                        _paper.FillEllipse(br, currentLinePoints[i].X - 3,
+                                            currentLinePoints[i].Y - 3,
+                                            5, 5);
+                                } else
+                                {
+                                    using (SolidBrush br = new SolidBrush(Color.DarkOrange))
+                                        _paper.FillEllipse(br, currentLinePoints[i].X - 3,
+                                            currentLinePoints[i].Y - 3,
+                                            5, 5);
+                                }
                             }
 
                             using (Font stepFont = new Font("Tahoma", 8, FontStyle.Bold))//Font used for numbering the steps/current block)

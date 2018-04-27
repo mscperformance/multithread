@@ -43,6 +43,19 @@ namespace kagv {
             _startPos = new List<GridPos>(); //list that will be filled with the starting points of every AGV
             _AGVs = new List<Vehicle>();  //list that will be filled with objects of the class Vehicle
 
+            Color for1 = Color.BlueViolet;
+            Color for2 = Color.DarkOrange;
+
+            for (int i = 0; i < _AGVs.Count; i++)
+            {
+                _AGVs[i] = new Vehicle(this)
+                {
+                    ID = i
+                };
+                if (i == 0) _AGVs[i].LineColor = for1;
+                else _AGVs[i].LineColor = for2;
+            }
+
             //Double FOR-loops to scan the whole Grid and perform the needed actions
             for (var i = 0; i < Globals.WidthBlocks; i++)
                 for (var j = 0; j < Globals.HeightBlocks; j++) {
@@ -67,6 +80,8 @@ namespace kagv {
 
                         _AGVs.Add(new Vehicle(this));
                         _AGVs[_posIndex].ID = _posIndex;
+                        if (_posIndex == 0) _AGVs[_posIndex].LineColor = for1;
+                        else _AGVs[_posIndex].LineColor = for2;
 
                         _startPos.Add(new GridPos(i, j)); //adds the starting coordinates of an AGV to the StartPos list
 

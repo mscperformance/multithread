@@ -58,6 +58,7 @@ namespace kagv {
         public GridLine[] Paths = new GridLine[Globals.MaximumSteps];
         public Point Location;
         public Point MarkedLoad;
+        public Color LineColor;
 
         //get-set is not a mandatory here
         public int ID = -1;
@@ -113,7 +114,7 @@ namespace kagv {
             //init vars
             Status.Busy = false;
             Status.Loaded = false;
-
+            LineColor = Color.Red;
             _agvPortrait = new Panel
             {
                 Name = "AGVPORTRAIT"
