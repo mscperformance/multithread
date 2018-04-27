@@ -34,9 +34,7 @@ namespace kagv {
 
         //function that resets all of the used objects so they are ready for reuse, preventing memory leaks
         private void FullyRestore() {
-            if (_trappedStatus != null)
-                Array.Clear(_trappedStatus, 0, _trappedStatus.GetLength(0));
-
+           
 
             for (short i = 0; i < _AGVs.Count; i++)
                 _AGVs[i].KillIcon();
@@ -75,12 +73,10 @@ namespace kagv {
             _never =
             _imported =
             _calibrated =
-            _isMouseDown =
-            _mapHasLoads = false;
+            _isMouseDown = false;
             
             priorityRulesbetaToolStripMenuItem.Checked = false;
-
-            _importedLayout = null;
+            
             _jumpParam = null;
             _paper = null;
             _loads = _posIndex = 0;

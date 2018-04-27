@@ -47,8 +47,6 @@ namespace kagv {
 
         private List<Vehicle> _AGVs = new List<Vehicle>();
         private List<GridPos> _startPos = new List<GridPos>(); //Contains the coords of the Start boxes
-        private List<GridPos> _loadPos;
-        private readonly bool[] _trappedStatus = new bool[5];
 
 
         private int _a; //temporary X.Used to calculate the remained length of current line
@@ -66,7 +64,6 @@ namespace kagv {
         private bool _beforeStart = true;
         private bool _calibrated ;//flag checking if current point is correctly callibrated in the middle of the rectangle
         private bool _isMouseDown;
-        private bool _mapHasLoads;
         private bool _allowHighlight = true;
 
         private bool _alwaysCross = true;
@@ -79,8 +76,6 @@ namespace kagv {
         private Color _selectedColor = Color.DarkGray;
         private Color _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;
         
-        private Image _importedLayout = null;
-
 
     }
 }

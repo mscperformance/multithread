@@ -36,12 +36,10 @@ namespace kagv {
             DiagonalMovement diagonalMovement=DiagonalMovement.Always;
             HeuristicMode heuristicMode = HeuristicMode.Manhattan;
           
-            _isLoad = new int[Globals.WidthBlocks, Globals.HeightBlocks];
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
             _rectangles = new GridBox[Globals.WidthBlocks][];
 
-            
             for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                 //declares the length of the seconds 1d array
                 _rectangles[widthTrav] = new GridBox[Globals.HeightBlocks];
@@ -49,10 +47,7 @@ namespace kagv {
                         _rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.Normal);
                 }
             }
-            if (_imported)
-                _imported = false;
-
-
+      
             _searchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
             _jumpParam = new AStarParam (
                 _searchGrid,

@@ -39,8 +39,6 @@ namespace kagv {
             InitializeComponent();//Create the form layout
             MeasureScreen();
             Initialization();//initialize our stuff
-
-         
         }
 
     
@@ -55,14 +53,7 @@ namespace kagv {
             ControlStyles.DoubleBuffer, true);
 
             try {
-                if (_importedLayout != null) {
-
-                    Rectangle r = new Rectangle(new Point(_rectangles[0][0].X, _rectangles[0][0].Y)
-                        , new Size((_rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].X) - Globals.LeftBarOffset + Globals.BlockSide
-                            , (_rectangles[Globals.WidthBlocks - 1][Globals.HeightBlocks - 1].Y) - Globals.TopBarOffset + Globals.BlockSide));
-                    _paper.DrawImage(_importedLayout, r);
-
-                }
+                
                 //draws the grid
                 for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
                     for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
@@ -71,7 +62,6 @@ namespace kagv {
                         _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Start);
                         _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.End);
                         _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Wall);
-                        _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Load);
                     }
                 }
 
@@ -81,11 +71,7 @@ namespace kagv {
                     for (var resultTrav = 0; resultTrav < _AGVs[i].JumpPoints.Count; resultTrav++)
                         try {
                             if (linesToolStripMenuItem.Checked)
-                            {
-                                
                                 _AGVs[i].Paths[resultTrav].DrawLine(_paper, _AGVs[i].LineColor);//draw the lines 
-                            }
-                            if (!_isMouseDown)
                                 DrawPoints(_AGVs[i].Paths[resultTrav], i);//show points
                         } catch { }
                 }
@@ -94,13 +80,13 @@ namespace kagv {
                 var AGVsListIndex = 0;
                 if (aGVIndexToolStripMenuItem.Checked)
                     for (short i = 0; i < nUD_AGVs.Value; i++)
-                        if (!_trappedStatus[i]) {
+                    {
                             _paper.DrawString("Object:" + _AGVs[AGVsListIndex].ID,
                                              new Font("Tahoma", 8, FontStyle.Bold),
                                              new SolidBrush(Color.Red),
                                              new Point((_startPos[AGVsListIndex].X * Globals.BlockSide) - 10 + Globals.LeftBarOffset, ((_startPos[AGVsListIndex].Y * Globals.BlockSide) + Globals.TopBarOffset) - Globals.BlockSide));
                             AGVsListIndex++;
-                        }
+                    }
 
             } catch { }
         }
@@ -484,15 +470,6 @@ namespace kagv {
             borderColorToolStripMenuItem.Checked = false;
         }
 
-
-        private void fileToolStripMenuItem_Click(object sender, EventArgs e) {
-
-            int c = 0;
-            for (short i = 0; i < _startPos.Count; i++)
-                c += _AGVs[i].JumpPoints.Count;
-            
-        }
-
         private void nud_weight_ValueChanged(object sender, EventArgs e) {
             Redraw();
         }
@@ -502,9 +479,8 @@ namespace kagv {
             Refresh();
         }
         
-
         private void defaultGridSizeToolStripMenuItem_Click(object sender, EventArgs e) {
-            Globals.BlockSide = 15;
+            Globals.BlockSide = 12;
             MeasureScreen();
             Initialization();
         }

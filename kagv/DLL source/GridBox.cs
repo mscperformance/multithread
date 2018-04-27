@@ -36,7 +36,7 @@ using System;
 using System.Drawing;
 
 namespace kagv.DLL_source {
-    internal enum BoxType { Start, End, Wall, Normal, Load };
+    internal enum BoxType { Start, End, Wall, Normal };
 
     internal class GridBox : IDisposable {
         public int X, Y, Width, Height;
@@ -62,9 +62,6 @@ namespace kagv.DLL_source {
                     break;
                 case BoxType.Wall:
                     _brush = new SolidBrush(Color.Gray);
-                    break;
-                case BoxType.Load:
-                    _brush = new SolidBrush(_myBrown);
                     break;
 
             }
@@ -119,23 +116,7 @@ namespace kagv.DLL_source {
         }
 
 
-        public void SwitchLoad() {
-            switch (BoxType) {
-                case BoxType.Normal:
-                    _brush?.Dispose();
-                    _brush = new SolidBrush(_myBrown);
-                    BoxType = BoxType.Load;
-                    break;
-                case BoxType.Load:
-                    _brush?.Dispose();
-
-                    _brush = Globals.SemiTransparency ? new SolidBrush(Globals.SemiTransparent) : new SolidBrush(Color.WhiteSmoke);
-                    BoxType = BoxType.Normal;
-                    break;
-
-            }
-        }
-
+      
 
         public void SwitchBox() {
             switch (BoxType) {

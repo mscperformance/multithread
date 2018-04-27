@@ -30,19 +30,9 @@ using System.Windows.Forms;
 namespace kagv {
 
     public partial class MainForm {
-
-        //function that calculates all the intermediate points between each turning point (or jumpPoint if you may)
+        
         private void DrawPoints(GridLine x, int agvIndex) {
-            //think of the incoming GridLine as follows:
-            //If you want to move from A to B, there might be an obstacle in the way, which must be bypassed
-            //For this purpose, there must be found a point to break the final route into 2 smaller (let's say A->b + b->B (AB in total)
-            //The incoming GridLine contains the pair of Coordinates for each one of the smaller routes
-            //So, for our example, GridLine x containts the starting A(x,y) & b(x,y)
-            //In a nutshell, this functions calculates all the child-steps of the parent-Line, determined by x.fromX,x.fromY and x.toX,x.toY
-
-
-            //the parent-Line will finaly consist of many pairs of (x,y): e.g [X1,Y1 / X2,Y2 / X3,Y3 ... Xn,Yn]
-
+          
             var x1 = x.FromX;
             var y1 = x.FromY;
             var x2 = x.ToX;

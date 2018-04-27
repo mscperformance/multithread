@@ -35,7 +35,6 @@ namespace kagv {
         //AGV Status
         internal class AGVStatus {
             public bool Busy { get; set; }
-            public bool Loaded { get; set; }
         }
 
         public AGVStatus Status { get; } = new AGVStatus();
@@ -57,12 +56,10 @@ namespace kagv {
         //AGV Path
         public GridLine[] Paths = new GridLine[Globals.MaximumSteps];
         public Point Location;
-        public Point MarkedLoad;
         public Color LineColor;
 
         //get-set is not a mandatory here
         public int ID = -1;
-        public int LoadsDelivered = 0;
 
         private Panel _agvPortrait;
         private PictureBox _agvIcon;
@@ -81,25 +78,9 @@ namespace kagv {
  
         public int StepsCounter { get; set; }
 
-        //=========================================
-        /// <summary>
-        /// Returns the absolute Location of the Marked Load on the Grid
-        /// </summary>
-        /// <returns></returns>
-        public Point GetMarkedLoad() {
-            Point p = new Point(
-                (MarkedLoad.X * Globals.BlockSide) + Globals.LeftBarOffset,
-                (MarkedLoad.Y * Globals.BlockSide) + Globals.TopBarOffset
-                );
-            return p;
-        }
-
-
-
         public Vehicle(Form handle) { //constructor
             _mirroredForm = handle;
             Status.Busy = false;
-            Status.Loaded = false;
             _steps = new AGVSteps[Globals.MaximumSteps];
             for (int i = 0; i < _steps.Length; i++) {
                 _steps[i] = new AGVSteps
@@ -113,7 +94,6 @@ namespace kagv {
         public void Init() {
             //init vars
             Status.Busy = false;
-            Status.Loaded = false;
             LineColor = Color.Red;
             _agvPortrait = new Panel
             {
@@ -161,17 +141,6 @@ namespace kagv {
                 _agvIcon.Dispose();
                 _agvPortrait.Dispose();
             } catch { }
-        }
-
-
-        public void SetLoaded() {
-            _agvIcon.Image = _getEmbedResource("loaded.png");
-            Status.Loaded = true;
-        }
-
-        public void SetEmpty() {
-            _agvIcon.Image = _getEmbedResource("empty.png");
-            Status.Loaded = false;
         }
 
         public void UpdateAGV() {
