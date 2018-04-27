@@ -42,8 +42,7 @@ namespace kagv {
         
 
         private GridBox[][] _rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
-
-        private int[] _onWhichStep;
+        
         private bool[] _fromstart = new bool[Globals.MaximumAGVs];
 
         private List<Vehicle> _AGVs = new List<Vehicle>();
@@ -76,7 +75,6 @@ namespace kagv {
         private bool _never ;
 
         private int _loads ; //default=0 anyways...index for keeping count of how many Loads there are in the Grid
-        private int _labeled_loads; //index that is used for displaying how many loads have not been picked up
 
         private Color _selectedColor = Color.DarkGray;
         private Color _boxDefaultColor = (Globals.SemiTransparency) ? Color.FromArgb(Globals.Opacity, Color.WhiteSmoke) : Color.WhiteSmoke;

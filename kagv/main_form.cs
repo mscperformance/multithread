@@ -40,24 +40,7 @@ namespace kagv {
             MeasureScreen();
             Initialization();//initialize our stuff
 
-            /*
-            * 'this' is not a mandatory here but i need 
-            * a clean and understandable solution on that 
-            * dynamically created event
-            */
-            this.MouseWheel += MainForm_ScrollEvent;
-
-            /*
-            * Focus is needed to execute the MouseWheel event.
-            * although i dont use it because the form is 
-            * already focused on load
-            */
-            //this.Focus();
-        }
-
-        //dynamic scroll event
-        private void MainForm_ScrollEvent(object sender,MouseEventArgs e) {
-            MessageBox.Show("You just scrolled");
+         
         }
 
         //paint event on form.
@@ -91,11 +74,6 @@ namespace kagv {
                         _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.End);
                         _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Wall);
                         _rectangles[widthTrav][heightTrav].DrawBox(_paper, BoxType.Load);
-
-                        if (_rectangles[widthTrav][heightTrav].BoxType == BoxType.Load
-                            && _isLoad[widthTrav, heightTrav] == 3)
-                            _rectangles[widthTrav][heightTrav].SetAsTargetted(_paper);
-
                     }
                 }
 
@@ -115,7 +93,7 @@ namespace kagv {
                 if (aGVIndexToolStripMenuItem.Checked)
                     for (short i = 0; i < nUD_AGVs.Value; i++)
                         if (!_trappedStatus[i]) {
-                            _paper.DrawString("AGV:" + _AGVs[AGVsListIndex].ID,
+                            _paper.DrawString("Object:" + _AGVs[AGVsListIndex].ID,
                                              new Font("Tahoma", 8, FontStyle.Bold),
                                              new SolidBrush(Color.Red),
                                              new Point((_startPos[AGVsListIndex].X * Globals.BlockSide) - 10 + Globals.LeftBarOffset, ((_startPos[AGVsListIndex].Y * Globals.BlockSide) + Globals.TopBarOffset) - Globals.BlockSide));
@@ -126,9 +104,6 @@ namespace kagv {
         }
      
         private void main_form_Load(object sender, EventArgs e) {
-            
-            
-
             //Automatically enable the CPUs for this app.
             var proc = System.Diagnostics.Process.GetCurrentProcess();
             int coreFlag;
@@ -143,7 +118,6 @@ namespace kagv {
 
         private void main_form_MouseDown(object sender, MouseEventArgs e) {
            
-
             //Supposing that timers are not enabled(that means that the simulation is not running)
             //we have a clicked point.Check if that point is valid.if not explicitly leave
             if (!Isvalid(new Point(e.X, e.Y)))
@@ -486,47 +460,8 @@ namespace kagv {
         }
 
         private void allToolStripMenuItem_Click(object sender, EventArgs e) {
-
             FullyRestore();
-            
         }
-
-
-        private void startToolStripMenuItem_Click(object sender, EventArgs e) {
-            //start the animations
-
-
-            //refresh the numeric value regarding the drawn agvs
-            nUD_AGVs.Value = GetNumberOfAGVs();
-
-            for (short i = 0; i < _fromstart.Length; i++)
-                _fromstart[i] = true;
-
-            _beforeStart = false;
-            _allowHighlight = false;//do not allow highlight while emulation is active
-
-            for (short i = 0; i < _startPos.Count; i++)
-                _AGVs[i].MarkedLoad = new Point();
-
-            Redraw();
-
-            _labeled_loads = _loads;
-            for (short i = 0; i < _startPos.Count; i++) {
-                _AGVs[i].StartX = _rectangles[_startPos[i].X][_startPos[i].Y].BoxRec.X;
-                _AGVs[i].StartY = _rectangles[_startPos[i].X][_startPos[i].Y].BoxRec.Y;
-                _AGVs[i].SizeX = Globals.BlockSide - 1;
-                _AGVs[i].SizeY = Globals.BlockSide - 1;
-                _AGVs[i].Init();
-            }
-
-            _onWhichStep = new int[_startPos.Count];
-            settings_menu.Enabled = false;
-            gb_settings.Enabled = false;
-            nud_weight.Enabled = false;
-         
-
-        }
-
 
         private void borderColorToolStripMenuItem1_Click(object sender, EventArgs e) {
             BackColor = Color.DarkGray;
@@ -546,60 +481,11 @@ namespace kagv {
             Redraw();
         }
 
-        private void showGridBlockLocationsToolStripMenuItem_MouseEnter(object sender, EventArgs e) {
-
-            Graphics g = CreateGraphics();
-
-            //Supposed to make graphics faster but i see no difference.nevermind...who cares -->
-            Paint -= main_form_Paint;
-            g.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
-            g.CompositingQuality = System.Drawing.Drawing2D.CompositingQuality.HighSpeed;
-            g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighSpeed;
-            g.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighSpeed;
-            g.TextRenderingHint = System.Drawing.Text.TextRenderingHint.SystemDefault;
-            SetStyle(
-            ControlStyles.DoubleBuffer, true);
-            
-            for (var widthTrav = 0; widthTrav < Globals.WidthBlocks; widthTrav++) {
-                for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
-                    g.DrawString("x" + widthTrav + "\n" + "y" + heightTrav,
-                                    new Font("Tahoma", 5, FontStyle.Bold),
-                                    new SolidBrush(Color.DarkSlateBlue),
-                                    new Point(_rectangles[widthTrav][heightTrav].X, _rectangles[widthTrav][heightTrav].Y)
-                                    );
-                    
-                }
-            }
-
-            // <---
-            Paint += main_form_Paint;
-        }
-
         private void showGridBlockLocationsToolStripMenuItem_MouseLeave(object sender, EventArgs e) {
             Redraw();
             Refresh();
         }
         
-        private void main_form_FormClosing(object sender, FormClosingEventArgs e) {
-            if (File.Exists("info.txt"))
-                File.Delete("info.txt");
-
-            StreamWriter writer = new StreamWriter("info.txt");
-            writer.WriteLine(
-                "WidthBlocks:"+Globals.WidthBlocks + "\n" +
-                "HeightBlocks:"+Globals.HeightBlocks + "\n" +
-                "BlockSide:"+Globals.BlockSide + "\n" +
-                "DiagonalMovement:"+_jumpParam.DiagonalMovement+"\n"+
-                "Heuristic:"+_jumpParam.HeuristicFunc.Method+"\n"+
-                "ShowSteps:"+stepsToolStripMenuItem.Checked+"\n"+
-                "ShowLines:"+linesToolStripMenuItem.Checked+"\n"+
-                "ShowDots:"+dotsToolStripMenuItem.Checked+"\n"+
-                "ShowBorders:"+bordersToolStripMenuItem.Checked+"\n"+
-                "Highlight:"+highlightOverCurrentBoxToolStripMenuItem.Checked+"\n"+
-                "ShowAGVindex:"+aGVIndexToolStripMenuItem.Checked
-                );
-            writer.Dispose();
-        }
 
         private void defaultGridSizeToolStripMenuItem_Click(object sender, EventArgs e) {
             Globals.BlockSide = 15;

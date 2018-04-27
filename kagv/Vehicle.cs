@@ -60,10 +60,6 @@ namespace kagv {
         public Point MarkedLoad;
 
         //get-set is not a mandatory here
-        public int StartX;
-        public int StartY;
-        public int SizeX;
-        public int SizeY;
         public int ID = -1;
         public int LoadsDelivered = 0;
 
@@ -127,9 +123,7 @@ namespace kagv {
             _agvPortrait.Controls.Add(_agvIcon);
 
             Size size = new Size(Globals.BlockSide - 2, Globals.BlockSide - 2);
-            Point location = new Point(StartX, StartY);
             _agvPortrait.Size = size;
-            _agvPortrait.Location = location;
             _agvPortrait.Visible = true;
             _agvPortrait.BringToFront();
             _agvPortrait.BackColor = Color.Transparent;

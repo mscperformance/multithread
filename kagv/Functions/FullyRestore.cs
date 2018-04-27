@@ -34,14 +34,6 @@ namespace kagv {
 
         //function that resets all of the used objects so they are ready for reuse, preventing memory leaks
         private void FullyRestore() {
-
-
-          
-            _labeled_loads = 0;
-
-            if (_onWhichStep != null)
-                Array.Clear(_onWhichStep, 0, _onWhichStep.GetLength(0));
-
             if (_trappedStatus != null)
                 Array.Clear(_trappedStatus, 0, _trappedStatus.GetLength(0));
 

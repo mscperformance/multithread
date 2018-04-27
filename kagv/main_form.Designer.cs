@@ -28,11 +28,11 @@
             this.gb_settings = new System.Windows.Forms.GroupBox();
             this.gb_agvs = new System.Windows.Forms.GroupBox();
             this.nUD_AGVs = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.nud_weight = new System.Windows.Forms.NumericUpDown();
             this.rb_wall = new System.Windows.Forms.RadioButton();
             this.rb_start = new System.Windows.Forms.RadioButton();
             this.rb_stop = new System.Windows.Forms.RadioButton();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.nud_weight = new System.Windows.Forms.NumericUpDown();
             this.settings_menu = new System.Windows.Forms.MenuStrip();
             this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parametresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -46,7 +46,7 @@
             this.manhattanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.euclideanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chebyshevToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cd_grid = new System.Windows.Forms.ColorDialog();
+            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.stepsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.linesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -61,7 +61,7 @@
             this.allToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.gridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cd_grid = new System.Windows.Forms.ColorDialog();
             this.menuPanel.SuspendLayout();
             this.gb_settings.SuspendLayout();
             this.gb_agvs.SuspendLayout();
@@ -75,7 +75,6 @@
             // 
             this.menuPanel.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.menuPanel.Controls.Add(this.gb_settings);
-            this.menuPanel.Controls.Add(this.groupBox1);
             this.menuPanel.Location = new System.Drawing.Point(0, 27);
             this.menuPanel.Name = "menuPanel";
             this.menuPanel.Size = new System.Drawing.Size(601, 75);
@@ -84,25 +83,26 @@
             // gb_settings
             // 
             this.gb_settings.Controls.Add(this.gb_agvs);
+            this.gb_settings.Controls.Add(this.groupBox1);
             this.gb_settings.Controls.Add(this.rb_wall);
             this.gb_settings.Controls.Add(this.rb_start);
             this.gb_settings.Controls.Add(this.rb_stop);
             this.gb_settings.Location = new System.Drawing.Point(3, 5);
             this.gb_settings.Name = "gb_settings";
-            this.gb_settings.Size = new System.Drawing.Size(216, 65);
+            this.gb_settings.Size = new System.Drawing.Size(264, 65);
             this.gb_settings.TabIndex = 25;
             this.gb_settings.TabStop = false;
-            this.gb_settings.Text = "Settings";
+            this.gb_settings.Text = "Toolbox";
             // 
             // gb_agvs
             // 
             this.gb_agvs.Controls.Add(this.nUD_AGVs);
-            this.gb_agvs.Location = new System.Drawing.Point(145, 13);
+            this.gb_agvs.Location = new System.Drawing.Point(115, 16);
             this.gb_agvs.Name = "gb_agvs";
             this.gb_agvs.Size = new System.Drawing.Size(65, 43);
             this.gb_agvs.TabIndex = 18;
             this.gb_agvs.TabStop = false;
-            this.gb_agvs.Text = "AGVs";
+            this.gb_agvs.Text = "Objects";
             // 
             // nUD_AGVs
             // 
@@ -117,44 +117,12 @@
             this.nUD_AGVs.TabIndex = 10;
             this.nUD_AGVs.ValueChanged += new System.EventHandler(this.nUD_AGVs_ValueChanged);
             // 
-            // rb_wall
-            // 
-            this.rb_wall.AutoSize = true;
-            this.rb_wall.Checked = true;
-            this.rb_wall.Location = new System.Drawing.Point(9, 19);
-            this.rb_wall.Name = "rb_wall";
-            this.rb_wall.Size = new System.Drawing.Size(46, 17);
-            this.rb_wall.TabIndex = 4;
-            this.rb_wall.TabStop = true;
-            this.rb_wall.Text = "Wall";
-            this.rb_wall.UseVisualStyleBackColor = true;
-            // 
-            // rb_start
-            // 
-            this.rb_start.AutoSize = true;
-            this.rb_start.Location = new System.Drawing.Point(91, 19);
-            this.rb_start.Name = "rb_start";
-            this.rb_start.Size = new System.Drawing.Size(47, 17);
-            this.rb_start.TabIndex = 4;
-            this.rb_start.Text = "Start";
-            this.rb_start.UseVisualStyleBackColor = true;
-            // 
-            // rb_stop
-            // 
-            this.rb_stop.AutoSize = true;
-            this.rb_stop.Location = new System.Drawing.Point(91, 42);
-            this.rb_stop.Name = "rb_stop";
-            this.rb_stop.Size = new System.Drawing.Size(47, 17);
-            this.rb_stop.TabIndex = 4;
-            this.rb_stop.Text = "Stop";
-            this.rb_stop.UseVisualStyleBackColor = true;
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.nud_weight);
-            this.groupBox1.Location = new System.Drawing.Point(301, 5);
+            this.groupBox1.Location = new System.Drawing.Point(186, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(69, 45);
+            this.groupBox1.Size = new System.Drawing.Size(69, 43);
             this.groupBox1.TabIndex = 29;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "A* Weight";
@@ -172,6 +140,38 @@
             this.nud_weight.Size = new System.Drawing.Size(64, 20);
             this.nud_weight.TabIndex = 28;
             this.nud_weight.ValueChanged += new System.EventHandler(this.nud_weight_ValueChanged);
+            // 
+            // rb_wall
+            // 
+            this.rb_wall.AutoSize = true;
+            this.rb_wall.Checked = true;
+            this.rb_wall.Location = new System.Drawing.Point(9, 19);
+            this.rb_wall.Name = "rb_wall";
+            this.rb_wall.Size = new System.Drawing.Size(46, 17);
+            this.rb_wall.TabIndex = 4;
+            this.rb_wall.TabStop = true;
+            this.rb_wall.Text = "Wall";
+            this.rb_wall.UseVisualStyleBackColor = true;
+            // 
+            // rb_start
+            // 
+            this.rb_start.AutoSize = true;
+            this.rb_start.Location = new System.Drawing.Point(62, 42);
+            this.rb_start.Name = "rb_start";
+            this.rb_start.Size = new System.Drawing.Size(47, 17);
+            this.rb_start.TabIndex = 4;
+            this.rb_start.Text = "Start";
+            this.rb_start.UseVisualStyleBackColor = true;
+            // 
+            // rb_stop
+            // 
+            this.rb_stop.AutoSize = true;
+            this.rb_stop.Location = new System.Drawing.Point(9, 42);
+            this.rb_stop.Name = "rb_stop";
+            this.rb_stop.Size = new System.Drawing.Size(47, 17);
+            this.rb_stop.TabIndex = 4;
+            this.rb_stop.Text = "Stop";
+            this.rb_stop.UseVisualStyleBackColor = true;
             // 
             // settings_menu
             // 
@@ -203,7 +203,7 @@
             this.toolStripSeparator2,
             this.priorityRulesbetaToolStripMenuItem});
             this.parametresToolStripMenuItem.Name = "parametresToolStripMenuItem";
-            this.parametresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.parametresToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.parametresToolStripMenuItem.Text = "Parametres";
             // 
             // alwaysCrossMenu
@@ -255,7 +255,7 @@
             this.euclideanToolStripMenuItem,
             this.chebyshevToolStripMenuItem});
             this.heuristicModeToolStripMenuItem.Name = "heuristicModeToolStripMenuItem";
-            this.heuristicModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.heuristicModeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
             this.heuristicModeToolStripMenuItem.Text = "Heuristic Mode";
             // 
             // manhattanToolStripMenuItem
@@ -279,6 +279,17 @@
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
+            // gridToolStripMenuItem
+            // 
+            this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.showToolStripMenuItem,
+            this.borderColorToolStripMenuItem,
+            this.toolStripMenuItem2,
+            this.clearToolStripMenuItem});
+            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
+            this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+            this.gridToolStripMenuItem.Text = "Grid";
+            // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -289,7 +300,7 @@
             this.highlightOverCurrentBoxToolStripMenuItem,
             this.aGVIndexToolStripMenuItem});
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.showToolStripMenuItem.Text = "Show...";
             // 
             // stepsToolStripMenuItem
@@ -337,14 +348,14 @@
             // borderColorToolStripMenuItem
             // 
             this.borderColorToolStripMenuItem.Name = "borderColorToolStripMenuItem";
-            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.borderColorToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.borderColorToolStripMenuItem.Text = "Border Color";
             this.borderColorToolStripMenuItem.Click += new System.EventHandler(this.borderColorToolStripMenuItem_Click);
             // 
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(138, 6);
             // 
             // clearToolStripMenuItem
             // 
@@ -354,7 +365,7 @@
             this.borderColorToolStripMenuItem1,
             this.defaultGridSizeToolStripMenuItem});
             this.clearToolStripMenuItem.Name = "clearToolStripMenuItem";
-            this.clearToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.clearToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.clearToolStripMenuItem.Text = "Clear";
             // 
             // wallsToolStripMenuItem
@@ -386,17 +397,6 @@
             this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
             this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
             // 
-            // gridToolStripMenuItem
-            // 
-            this.gridToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.showToolStripMenuItem,
-            this.borderColorToolStripMenuItem,
-            this.toolStripMenuItem2,
-            this.clearToolStripMenuItem});
-            this.gridToolStripMenuItem.Name = "gridToolStripMenuItem";
-            this.gridToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
-            this.gridToolStripMenuItem.Text = "Grid";
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -410,8 +410,7 @@
             this.MainMenuStrip = this.settings_menu;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "K-aGv Simulation-Industrial";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_form_FormClosing);
+            this.Text = "A* Star multithreading demo";
             this.Load += new System.EventHandler(this.main_form_Load);
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.main_form_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.main_form_MouseDown);
