@@ -42,7 +42,7 @@ namespace kagv {
             }
 
             Width = (Globals.WidthBlocks + 1) * Globals.BlockSide + Globals.LeftBarOffset - 100;
-            Height = (Globals.HeightBlocks + 1) * Globals.BlockSide + Globals.BottomBarOffset + 7 ; //+7 for borders
+            Height = (Globals.HeightBlocks + 1) * Globals.BlockSide + Globals.BottomBarOffset +20 ; //+7 for borders
             Size = new Size(Width, Height + Globals.BottomBarOffset);
             MaximizeBox = false;
             FormBorderStyle = FormBorderStyle.FixedSingle;

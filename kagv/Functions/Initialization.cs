@@ -35,33 +35,7 @@ namespace kagv {
 
             DiagonalMovement diagonalMovement=DiagonalMovement.Always;
             HeuristicMode heuristicMode = HeuristicMode.Manhattan;
-            char[] delim = { ':',' ','(' };
-            if (File.Exists("info.txt"))
-            {
-                if (Globals.FirstFormLoad) {
-                    StreamReader reader = new StreamReader("info.txt");
-                    try {
-                        Globals.WidthBlocks = Convert.ToInt32(reader.ReadLine().Split(delim)[1]);
-                        Globals.HeightBlocks = Convert.ToInt32(reader.ReadLine().Split(delim)[1]);
-                        Globals.BlockSide = Convert.ToInt32(reader.ReadLine().Split(delim)[1]);
-                        diagonalMovement = (DiagonalMovement)Enum.Parse(typeof(DiagonalMovement), reader.ReadLine().Split(delim)[1]);
-                        heuristicMode = (HeuristicMode)Enum.Parse(typeof(HeuristicMode), reader.ReadLine().Split(delim)[2]);
-                        stepsToolStripMenuItem.Checked = Convert.ToBoolean(reader.ReadLine().Split(delim)[1]);
-                        linesToolStripMenuItem.Checked = Convert.ToBoolean(reader.ReadLine().Split(delim)[1]);
-                        dotsToolStripMenuItem.Checked = Convert.ToBoolean(reader.ReadLine().Split(delim)[1]);
-                        bordersToolStripMenuItem.Checked = Convert.ToBoolean(reader.ReadLine().Split(delim)[1]);
-                        highlightOverCurrentBoxToolStripMenuItem.Checked = Convert.ToBoolean(reader.ReadLine().Split(delim)[1]);
-                        aGVIndexToolStripMenuItem.Checked = Convert.ToBoolean(reader.ReadLine().Split(delim)[1]);
-                    } catch {
-                        MessageBox.Show("An error has occured while parsing the file to initialize form.\nPlease delete the file.");
-                    }
-                    reader.Close();
-                }
-                Globals.FirstFormLoad = false;
-            }
-
-            
-
+          
             _isLoad = new int[Globals.WidthBlocks, Globals.HeightBlocks];
             //m_rectangels is an array of two 1d arrays
             //declares the length of the first 1d array
