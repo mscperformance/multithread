@@ -37,7 +37,7 @@ namespace kagv {
 
         public static int WidthBlocks; //grid blocks
         public static int HeightBlocks; //grid blocks
-        public static int BlockSide = 10;
+        public static int BlockSide = 12;
         public static byte Opacity = (byte) ( (BitConverter.GetBytes(Color.WhiteSmoke.ToArgb()).Reverse().ToArray())[0] - (100) );
         public static Color SemiTransparent;
         public static bool SemiTransparency = false;

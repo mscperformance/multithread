@@ -43,9 +43,7 @@ namespace kagv {
          
         }
 
-        //paint event on form.
-        //This event is triggered when a paint event or mouse event is happening over the form.
-        //mouse clicks ,hovers and clicks are also considered as triggers
+    
         private void main_form_Paint(object sender, PaintEventArgs e) {
             _paper = e.Graphics;
             _paper.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.Low;
@@ -79,6 +77,7 @@ namespace kagv {
 
                 for (short i = 0; i < _startPos.Count; i++) {
                     _AGVs[i].StepsCounter = 0;
+                    
                     for (var resultTrav = 0; resultTrav < _AGVs[i].JumpPoints.Count; resultTrav++)
                         try {
                             if (linesToolStripMenuItem.Checked)
@@ -191,6 +190,7 @@ namespace kagv {
                                         if (_rectangles[widthTrav][heightTrav].BoxType == _lastBoxType) {
                                             _rectangles[widthTrav][heightTrav].SwitchBox();
                                             _lastBoxSelect = _rectangles[widthTrav][heightTrav];
+                                            Redraw();
                                             Invalidate();
                                         }
                                         break;

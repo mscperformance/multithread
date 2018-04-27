@@ -108,7 +108,7 @@
             // 
             this.nUD_AGVs.Location = new System.Drawing.Point(16, 17);
             this.nUD_AGVs.Maximum = new decimal(new int[] {
-            5,
+            2,
             0,
             0,
             0});

@@ -36,15 +36,13 @@ namespace kagv {
 
             bool startFound = false;
             bool endFound = false;
-            _mapHasLoads = false;
 
             GridPos endPos = new GridPos();
 
             _posIndex = 0;
             _startPos = new List<GridPos>(); //list that will be filled with the starting points of every AGV
             _AGVs = new List<Vehicle>();  //list that will be filled with objects of the class Vehicle
-            _loadPos = new List<GridPos>(); //list that will be filled with the points of every Load
-            _loads = 0;
+
             //Double FOR-loops to scan the whole Grid and perform the needed actions
             for (var i = 0; i < Globals.WidthBlocks; i++)
                 for (var j = 0; j < Globals.HeightBlocks; j++) {
@@ -54,13 +52,7 @@ namespace kagv {
                     else
                         _searchGrid.SetWalkableAt(new GridPos(i, j), true);//every other block is marked as walkable (for now)
 
-                    if (_rectangles[i][j].BoxType == BoxType.Load) {
-                        _mapHasLoads = true;
-                        _searchGrid.SetWalkableAt(new GridPos(i, j), false); //marks every Load as non-walkable
-                        _isLoad[i, j] = 1; //considers every Load as available
-                        _loads++; //counts the number of available Loads in the grid
-                        _loadPos.Add(new GridPos(i, j)); //inserts the coordinates of the Load inside a list
-                    }
+                   
                     if (_rectangles[i][j].BoxType == BoxType.Normal)
                         _rectangles[i][j].OnHover(_boxDefaultColor);
 
@@ -111,49 +103,14 @@ namespace kagv {
                         _AGVs[i].Status.Busy = false; //initialize the status of _AGVs, as 'available'
                     }
 
-          
-
 
             //For-loop to repeat the path-finding process for ALL the _AGVs that participate in the simulation
-            for (short i = 0; i < _startPos.Count; i++) {
-                if (_AGVs[i].Status.Busy == false) {
-                    List<GridPos> jumpPointsList;
-                    switch (_mapHasLoads) {
-                        case true:
-                            //====create the path FROM START TO LOAD, if load exists=====
-                            for (int m = 0; m < _loadPos.Count; m++)
-                                _searchGrid.SetWalkableAt(_loadPos[m], false); //Do not allow walk over any other load except the targeted one
-                            _searchGrid.SetWalkableAt(_loadPos[0], true);
-
-                            //use of the A* alorithms to find the path between AGV and its marked Load
-                            _jumpParam.Reset(_startPos[_posIndex], _loadPos[0]);
-                            jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
-                            _AGVs[i].JumpPoints = jumpPointsList;
-                            _AGVs[i].Status.Busy = true;
-                            //====create the path FROM START TO LOAD, if load exists=====
-
-                            //======FROM LOAD TO END======
-                            for (int m = 0; m < _loadPos.Count; m++)
-                                _searchGrid.SetWalkableAt(_loadPos[m], false);
-                            _jumpParam.Reset(_loadPos[0], endPos);
-                            jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
-                            _AGVs[i].JumpPoints.AddRange(jumpPointsList);
-
-                            //marks the load that each AGV picks up on the 1st route, as 3, so each agv knows where to go after delivering the 1st load
-                            _isLoad[_loadPos[0].X, _loadPos[0].Y] = 3;
-                            _AGVs[i].MarkedLoad = new Point(_loadPos[0].X, _loadPos[0].Y);
-
-                            _loadPos.Remove(_loadPos[0]);
-                            //======FROM LOAD TO END======
-                            break;
-                        case false:
-                            _jumpParam.Reset(_startPos[_posIndex], endPos);
-                            jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
-
-                            _AGVs[i].JumpPoints = jumpPointsList;
-                            break;
-                    }
-                }
+            for (short i = 0; i < _startPos.Count; i++)
+            {
+                List<GridPos> jumpPointsList;
+                _jumpParam.Reset(_startPos[_posIndex], endPos);
+                jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight);
+                _AGVs[i].JumpPoints = jumpPointsList;
                 _posIndex++;
             }
 
