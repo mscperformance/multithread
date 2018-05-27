@@ -26,6 +26,8 @@ using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
+using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace kagv {
 
@@ -118,6 +120,9 @@ namespace kagv {
                         _AGVs[i].Status.Busy = false; //initialize the status of _AGVs, as 'available'
                     }
 
+            // Create new stopwatch to estimate the FindPath's computational time 
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
 
             //For-loop to repeat the path-finding process for ALL the _AGVs that participate in the simulation
             for (short i = 0; i < _startPos.Count; i++)
@@ -150,6 +155,10 @@ namespace kagv {
                     Array.Resize(ref _AGVs[i].Paths, c - 1); //resize of the _AGVs steps Table
          
             Invalidate();
+
+            // Stop StopWatch and show the results
+            stopwatch.Stop();
+            MessageBox.Show (String.Format( "The estimated computational time: {0}", stopwatch.Elapsed.TotalSeconds),"Estimated Time",MessageBoxButtons.OK);
         }
     }
 }
