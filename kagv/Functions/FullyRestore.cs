@@ -34,7 +34,13 @@ namespace kagv {
 
         //function that resets all of the used objects so they are ready for reuse, preventing memory leaks
         private void FullyRestore() {
-           
+
+
+            if (_importmap != null)
+            {
+                Array.Clear(_importmap, 0, _importmap.GetLength(0));
+                Array.Clear(_importmap, 0, _importmap.GetLength(1));
+            }
 
             for (short i = 0; i < _AGVs.Count; i++)
                 _AGVs[i].KillIcon();
@@ -68,6 +74,7 @@ namespace kagv {
             _beforeStart =
             _allowHighlight = true;
 
+            _imported =
             _atLeastOneObstacle =
             _ifNoObstacles =
             _never =

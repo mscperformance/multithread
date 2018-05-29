@@ -39,7 +39,7 @@ namespace kagv {
         //Marked by an AGV Load = 3
         //Temporarily trapped Load = 4
         private int[,] _isLoad;
-        
+        private BoxType[,] _importmap;
 
         private GridBox[][] _rectangles;//2d jagged array. Contains grid information (coords of each box, boxtype, etc etc)  
         

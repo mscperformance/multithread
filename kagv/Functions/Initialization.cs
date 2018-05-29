@@ -44,10 +44,15 @@ namespace kagv {
                 //declares the length of the seconds 1d array
                 _rectangles[widthTrav] = new GridBox[Globals.HeightBlocks];
                 for (var heightTrav = 0; heightTrav < Globals.HeightBlocks; heightTrav++) {
+                    if (_imported)
+                        _rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, _importmap[widthTrav, heightTrav]);
+                    else
                         _rectangles[widthTrav][heightTrav] = new GridBox((widthTrav * Globals.BlockSide) + Globals.LeftBarOffset, heightTrav * Globals.BlockSide + Globals.TopBarOffset, BoxType.Normal);
                 }
             }
-      
+            if (_imported)
+                _imported = false;
+
             _searchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
             _jumpParam = new AStarParam (
                 _searchGrid,
