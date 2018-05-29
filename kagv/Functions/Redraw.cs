@@ -123,8 +123,8 @@ namespace kagv {
             //Choose how to run the FindPath function (one or more threads)
            
             // Create new stopwatch to estimate the FindPath's computational time 
-            Stopwatch stopwatch = new Stopwatch();
-            stopwatch.Start();
+            //Stopwatch stopwatch = new Stopwatch();
+           // stopwatch.Start();
 
             //For-loop to repeat the path-finding process for ALL the _AGVs that participate in the simulation
             for (short i = 0; i < _startPos.Count; i++)
@@ -159,8 +159,8 @@ namespace kagv {
             Invalidate();
 
             // Stop StopWatch and show the results
-            stopwatch.Stop();
-            MessageBox.Show (String.Format( "The estimated computational time: {0}", stopwatch.Elapsed.TotalSeconds),"Estimated Time",MessageBoxButtons.OK);
+           // stopwatch.Stop();
+           // MessageBox.Show (String.Format( "The estimated computational time: {0}", stopwatch.Elapsed.TotalSeconds),"Estimated Time",MessageBoxButtons.OK);
         }
     }
 }

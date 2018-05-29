@@ -97,10 +97,10 @@ namespace kagv.DLL_source
                     });
                 else
                 {
-                    Parallel.ForEach(neighbors, neighbor =>
+                    foreach ( Node neighbor in neighbors)
                     {
 
-                        if (neighbor.IsClosed) return;
+                        if (neighbor.IsClosed) continue;
                         var x = neighbor.X;
                         var y = neighbor.Y;
                         float ng = node.StartToCurNodeLen + (float)((x - node.X == 0 || y - node.Y == 0) ? 1 : Math.Sqrt(2));
@@ -116,14 +116,11 @@ namespace kagv.DLL_source
                             neighbor.Parent = node;
                             if (!neighbor.IsOpened)
                             {
-                                lock (lo)
-                                {
-                                    openList.Add(neighbor);
-                                }
+                                openList.Add(neighbor);
                                 neighbor.IsOpened = true;
                             }
                         }
-                    });
+                    }
                 }
 
             }
