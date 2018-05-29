@@ -34,6 +34,7 @@ namespace kagv {
         public const int MaximumAGVs = 5;
         public const int GbMonitorWidth = 275;
         public const int GbMonitorHeight = 65;
+        public static bool isMultiThread = false;
 
         public static int WidthBlocks; //grid blocks
         public static int HeightBlocks; //grid blocks

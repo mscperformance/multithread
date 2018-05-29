@@ -39,8 +39,6 @@ namespace kagv {
             bool startFound = false;
             bool endFound = false;
 
-            bool isMultiThread = false;
-
             GridPos endPos = new GridPos();
 
             _posIndex = 0;
@@ -123,11 +121,7 @@ namespace kagv {
                     }
 
             //Choose how to run the FindPath function (one or more threads)
-            DialogResult threadResult = MessageBox.Show("Run with multiple threads?", "Multi threads", MessageBoxButtons.YesNo);
-            if (threadResult == DialogResult.Yes)
-                isMultiThread = true;
-            else
-                isMultiThread = false;
+           
             // Create new stopwatch to estimate the FindPath's computational time 
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
@@ -137,7 +131,7 @@ namespace kagv {
             {
                 List<GridPos> jumpPointsList;
                 _jumpParam.Reset(_startPos[_posIndex], endPos);
-                jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight, isMultiThread);
+                jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight, Globals.isMultiThread);
                 _AGVs[i].JumpPoints = jumpPointsList;
                 _posIndex++;
             }

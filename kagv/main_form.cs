@@ -92,6 +92,12 @@ namespace kagv {
         }
      
         private void main_form_Load(object sender, EventArgs e) {
+            DialogResult threadResult = MessageBox.Show("Run with multiple threads?", "Multi threads", MessageBoxButtons.YesNo);
+            if (threadResult == DialogResult.Yes)
+                Globals.isMultiThread = true;
+            else
+                Globals.isMultiThread = false;
+
             //Automatically enable the CPUs for this app.
             var proc = System.Diagnostics.Process.GetCurrentProcess();
             int coreFlag;

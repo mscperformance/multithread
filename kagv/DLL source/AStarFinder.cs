@@ -67,7 +67,7 @@ namespace kagv.DLL_source
 
                 var neighbors = grid.GetNeighbors(node, diagonalMovement);
 
-                if (isMultiThread)
+                if (Globals.isMultiThread)
                     Parallel.ForEach(neighbors, neighbor =>
                     {
 
@@ -95,7 +95,36 @@ namespace kagv.DLL_source
                             }
                         }
                     });
-                //else --> place the implemention with one thread
+                else
+                {
+                    Parallel.ForEach(neighbors, neighbor =>
+                    {
+
+                        if (neighbor.IsClosed) return;
+                        var x = neighbor.X;
+                        var y = neighbor.Y;
+                        float ng = node.StartToCurNodeLen + (float)((x - node.X == 0 || y - node.Y == 0) ? 1 : Math.Sqrt(2));
+
+                        if (!neighbor.IsOpened || ng < neighbor.StartToCurNodeLen)
+                        {
+                            neighbor.StartToCurNodeLen = ng;
+                            if (neighbor.HeuristicCurNodeToEndLen == null)
+                                neighbor.HeuristicCurNodeToEndLen = Convert.ToSingle(weight) * heuristic(Math.Abs(x - endNode.X), Math.Abs(y - endNode.Y));
+                            if (neighbor.HeuristicCurNodeToEndLen != null)
+                                neighbor.HeuristicStartToEndLen =
+                                    neighbor.StartToCurNodeLen + neighbor.HeuristicCurNodeToEndLen.Value;
+                            neighbor.Parent = node;
+                            if (!neighbor.IsOpened)
+                            {
+                                lock (lo)
+                                {
+                                    openList.Add(neighbor);
+                                }
+                                neighbor.IsOpened = true;
+                            }
+                        }
+                    });
+                }
 
             }
             return new List<GridPos>();
