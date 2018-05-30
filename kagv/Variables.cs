@@ -66,9 +66,8 @@ namespace kagv {
         private bool _isMouseDown;
         private bool _allowHighlight = true;
 
-        private bool _alwaysCross = true;
+        private bool _alwaysCross;
         private bool _atLeastOneObstacle ;
-        private bool _ifNoObstacles ;
         private bool _never ;
 
         private int _loads ; //default=0 anyways...index for keeping count of how many Loads there are in the Grid

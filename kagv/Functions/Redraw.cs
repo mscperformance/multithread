@@ -121,21 +121,21 @@ namespace kagv {
                     }
 
             //Choose how to run the FindPath function (one or more threads)
-           
-            // Create new stopwatch to estimate the FindPath's computational time 
-            //Stopwatch stopwatch = new Stopwatch();
-           // stopwatch.Start();
 
+
+           
             //For-loop to repeat the path-finding process for ALL the _AGVs that participate in the simulation
             for (short i = 0; i < _startPos.Count; i++)
             {
                 List<GridPos> jumpPointsList;
                 _jumpParam.Reset(_startPos[_posIndex], endPos);
+              
                 jumpPointsList = AStarFinder.FindPath(_jumpParam, Globals.AStarWeight, Globals.isMultiThread);
+               
                 _AGVs[i].JumpPoints = jumpPointsList;
                 _posIndex++;
             }
-
+          
             int c = 0;
             for (short i = 0; i < _startPos.Count; i++)
                 c += _AGVs[i].JumpPoints.Count;
@@ -158,9 +158,8 @@ namespace kagv {
          
             Invalidate();
 
-            // Stop StopWatch and show the results
-           // stopwatch.Stop();
-           // MessageBox.Show (String.Format( "The estimated computational time: {0}", stopwatch.Elapsed.TotalSeconds),"Estimated Time",MessageBoxButtons.OK);
+          
+           //
         }
     }
 }

@@ -59,11 +59,6 @@ namespace kagv {
 
             CenterToScreen();
 
-            alwaysCrossMenu.Checked = _alwaysCross;
-            atLeastOneMenu.Checked = _atLeastOneObstacle;
-            neverCrossMenu.Checked = _never;
-            noObstaclesMenu.Checked = _ifNoObstacles;
-
             manhattanToolStripMenuItem.Checked = true;
      
             menuPanel.Width = Width;

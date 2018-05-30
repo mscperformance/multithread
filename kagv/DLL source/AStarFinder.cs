@@ -3,6 +3,9 @@ using C5;
 using System;
 using System.Collections.Generic;
 
+using System.Diagnostics;
+using System.Windows.Forms;
+
 namespace kagv.DLL_source
 {
     public class AStarParam : ParamBase
@@ -57,20 +60,29 @@ namespace kagv.DLL_source
             openList.Add(startNode);
             startNode.IsOpened = true;
 
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+            
             while (openList.Count != 0)
             {
                 var node = openList.DeleteMin();
                 node.IsClosed = true;
 
                 if (node == endNode)
+                {
+                    stopwatch.Stop();
+                    MessageBox.Show("The estimated computational time: "+ stopwatch.ElapsedMilliseconds+"ms\r\nEstimated Time\r\nUsing multithread=" + Globals.isMultiThread);
                     return Node.Backtrace(endNode);
+                }
 
                 var neighbors = grid.GetNeighbors(node, diagonalMovement);
 
-                if (Globals.isMultiThread)
-                    Parallel.ForEach(neighbors, neighbor =>
-                    {
 
+                if (Globals.isMultiThread)
+                    
+                    Parallel.ForEach(neighbors,new ParallelOptions { MaxDegreeOfParallelism = 2 }, neighbor =>
+                    {
+                        
                         if (neighbor.IsClosed) return;
                         var x = neighbor.X;
                         var y = neighbor.Y;
@@ -87,11 +99,11 @@ namespace kagv.DLL_source
                             neighbor.Parent = node;
                             if (!neighbor.IsOpened)
                             {
-                                lock (lo)
-                                {
+                               
+                                neighbor.IsOpened = true;
+                                lock (lo) {
                                     openList.Add(neighbor);
                                 }
-                                neighbor.IsOpened = true;
                             }
                         }
                     });
@@ -122,8 +134,10 @@ namespace kagv.DLL_source
                         }
                     }
                 }
+               
 
             }
+           
             return new List<GridPos>();
 
         }

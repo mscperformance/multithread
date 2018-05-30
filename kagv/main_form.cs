@@ -109,16 +109,6 @@ namespace kagv {
             else
                 Globals.isMultiThread = false;
 
-            //Automatically enable the CPUs for this app.
-            var proc = System.Diagnostics.Process.GetCurrentProcess();
-            int coreFlag;
-            if (Environment.ProcessorCount == 1) coreFlag = 0x0001;
-            else if (Environment.ProcessorCount == 2) coreFlag = 0x0003;
-            else if (Environment.ProcessorCount == 3) coreFlag = 0x0007;
-            else coreFlag = 0x000F; //use only 4 cores.We dont care for pcs with more than 4 cores.
-
-            proc.ProcessorAffinity = new IntPtr(coreFlag);
-            //More infos here:https://msdn.microsoft.com/en-us/library/system.diagnostics.processthread.processoraffinity(v=vs.110).aspx
         }
 
         private void main_form_MouseDown(object sender, MouseEventArgs e)
@@ -359,87 +349,7 @@ namespace kagv {
                 Redraw();
 
         }
-        //parametres
-        private void useRecursiveToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            neverCrossMenu.Checked = false;
-            atLeastOneMenu.Checked = false;
-            noObstaclesMenu.Checked = false;
-            _jumpParam.DiagonalMovement = DiagonalMovement.Always;
-
-            //do not allow to have an unselected item
-            if (neverCrossMenu.Checked == false &&
-            atLeastOneMenu.Checked == false &&
-            noObstaclesMenu.Checked == false &&
-            alwaysCrossMenu.Checked == false)
-            {
-                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-                _jumpParam.DiagonalMovement = DiagonalMovement.Always;
-            }
-            Redraw();
-
-
-        }
-
-        private void crossAdjacentPointToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            alwaysCrossMenu.Checked = false;
-            atLeastOneMenu.Checked = false;
-            noObstaclesMenu.Checked = false;
-            _jumpParam.DiagonalMovement = DiagonalMovement.Never;
-
-            //do not allow to have an unselected item
-            if (neverCrossMenu.Checked == false &&
-            atLeastOneMenu.Checked == false &&
-            noObstaclesMenu.Checked == false &&
-            alwaysCrossMenu.Checked == false)
-            {
-                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-                _jumpParam.DiagonalMovement = DiagonalMovement.Never;
-            }
-            Redraw();
-        }
-
-        private void crossCornerToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            alwaysCrossMenu.Checked = false;
-            neverCrossMenu.Checked = false;
-            noObstaclesMenu.Checked = false;
-            _jumpParam.DiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable;
-
-            //do not allow to have an unselected item
-            if (neverCrossMenu.Checked == false &&
-            atLeastOneMenu.Checked == false &&
-            noObstaclesMenu.Checked == false &&
-            alwaysCrossMenu.Checked == false)
-            {
-                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-                _jumpParam.DiagonalMovement = DiagonalMovement.IfAtLeastOneWalkable;
-            }
-            Redraw();
-        }
-        private void crossCornerOnlyWhenNoObstaclesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-            alwaysCrossMenu.Checked = false;
-            atLeastOneMenu.Checked = false;
-            neverCrossMenu.Checked = false;
-            _jumpParam.DiagonalMovement = DiagonalMovement.OnlyWhenNoObstacles;
-
-            //do not allow to have an unselected item
-            if (neverCrossMenu.Checked == false &&
-            atLeastOneMenu.Checked == false &&
-            noObstaclesMenu.Checked == false &&
-            alwaysCrossMenu.Checked == false)
-            {
-                (sender as ToolStripMenuItem).Checked = !(sender as ToolStripMenuItem).Checked;
-                _jumpParam.DiagonalMovement = DiagonalMovement.OnlyWhenNoObstacles;
-            }
-            Redraw();
-        }
+        
 
         //heurestic mode
         private void manhattanToolStripMenuItem_Click(object sender, EventArgs e)

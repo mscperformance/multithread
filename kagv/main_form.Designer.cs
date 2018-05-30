@@ -34,14 +34,10 @@
             this.rb_start = new System.Windows.Forms.RadioButton();
             this.rb_stop = new System.Windows.Forms.RadioButton();
             this.settings_menu = new System.Windows.Forms.MenuStrip();
+            this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.parametresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.alwaysCrossMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.neverCrossMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.noObstaclesMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.atLeastOneMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-            this.priorityRulesbetaToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.heuristicModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.manhattanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.euclideanToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -62,10 +58,7 @@
             this.borderColorToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.defaultGridSizeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cd_grid = new System.Windows.Forms.ColorDialog();
-            this.mapToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
-            this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
             this.menuPanel.SuspendLayout();
             this.gb_settings.SuspendLayout();
@@ -190,69 +183,36 @@
             this.settings_menu.TabIndex = 8;
             this.settings_menu.Text = "menuStrip1";
             // 
+            // mapToolStripMenuItem
+            // 
+            this.mapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.importToolStripMenuItem,
+            this.exportToolStripMenuItem});
+            this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
+            this.mapToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
+            this.mapToolStripMenuItem.Text = "Map";
+            // 
+            // importToolStripMenuItem
+            // 
+            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.importToolStripMenuItem.Text = "Import";
+            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
+            // 
+            // exportToolStripMenuItem
+            // 
+            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.exportToolStripMenuItem.Text = "Export";
+            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
+            // 
             // aToolStripMenuItem
             // 
             this.aToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.parametresToolStripMenuItem,
             this.heuristicModeToolStripMenuItem});
             this.aToolStripMenuItem.Name = "aToolStripMenuItem";
             this.aToolStripMenuItem.Size = new System.Drawing.Size(73, 20);
             this.aToolStripMenuItem.Text = "Algorithm";
-            // 
-            // parametresToolStripMenuItem
-            // 
-            this.parametresToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.alwaysCrossMenu,
-            this.neverCrossMenu,
-            this.noObstaclesMenu,
-            this.atLeastOneMenu,
-            this.toolStripSeparator2,
-            this.priorityRulesbetaToolStripMenuItem});
-            this.parametresToolStripMenuItem.Name = "parametresToolStripMenuItem";
-            this.parametresToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.parametresToolStripMenuItem.Text = "Parametres";
-            // 
-            // alwaysCrossMenu
-            // 
-            this.alwaysCrossMenu.Name = "alwaysCrossMenu";
-            this.alwaysCrossMenu.Size = new System.Drawing.Size(299, 22);
-            this.alwaysCrossMenu.Text = "Always cross corners";
-            this.alwaysCrossMenu.Click += new System.EventHandler(this.useRecursiveToolStripMenuItem_Click);
-            // 
-            // neverCrossMenu
-            // 
-            this.neverCrossMenu.Name = "neverCrossMenu";
-            this.neverCrossMenu.Size = new System.Drawing.Size(299, 22);
-            this.neverCrossMenu.Text = "Never cross corners";
-            this.neverCrossMenu.Click += new System.EventHandler(this.crossAdjacentPointToolStripMenuItem_Click);
-            // 
-            // noObstaclesMenu
-            // 
-            this.noObstaclesMenu.Name = "noObstaclesMenu";
-            this.noObstaclesMenu.Size = new System.Drawing.Size(299, 22);
-            this.noObstaclesMenu.Text = "Cross corner only when no obstacles";
-            this.noObstaclesMenu.Click += new System.EventHandler(this.crossCornerOnlyWhenNoObstaclesToolStripMenuItem_Click);
-            // 
-            // atLeastOneMenu
-            // 
-            this.atLeastOneMenu.Name = "atLeastOneMenu";
-            this.atLeastOneMenu.Size = new System.Drawing.Size(299, 22);
-            this.atLeastOneMenu.Text = "Cross corner only if at least one is walkable";
-            this.atLeastOneMenu.Click += new System.EventHandler(this.crossCornerToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator2
-            // 
-            this.toolStripSeparator2.Alignment = System.Windows.Forms.ToolStripItemAlignment.Right;
-            this.toolStripSeparator2.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.toolStripSeparator2.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-            this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(296, 6);
-            // 
-            // priorityRulesbetaToolStripMenuItem
-            // 
-            this.priorityRulesbetaToolStripMenuItem.Name = "priorityRulesbetaToolStripMenuItem";
-            this.priorityRulesbetaToolStripMenuItem.Size = new System.Drawing.Size(299, 22);
-            this.priorityRulesbetaToolStripMenuItem.Text = "Priority rules (beta)";
             // 
             // heuristicModeToolStripMenuItem
             // 
@@ -261,27 +221,27 @@
             this.euclideanToolStripMenuItem,
             this.chebyshevToolStripMenuItem});
             this.heuristicModeToolStripMenuItem.Name = "heuristicModeToolStripMenuItem";
-            this.heuristicModeToolStripMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.heuristicModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.heuristicModeToolStripMenuItem.Text = "Heuristic Mode";
             // 
             // manhattanToolStripMenuItem
             // 
             this.manhattanToolStripMenuItem.Name = "manhattanToolStripMenuItem";
-            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.manhattanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.manhattanToolStripMenuItem.Text = "Manhattan";
             this.manhattanToolStripMenuItem.Click += new System.EventHandler(this.manhattanToolStripMenuItem_Click);
             // 
             // euclideanToolStripMenuItem
             // 
             this.euclideanToolStripMenuItem.Name = "euclideanToolStripMenuItem";
-            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.euclideanToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.euclideanToolStripMenuItem.Text = "Euclidean";
             this.euclideanToolStripMenuItem.Click += new System.EventHandler(this.euclideanToolStripMenuItem_Click);
             // 
             // chebyshevToolStripMenuItem
             // 
             this.chebyshevToolStripMenuItem.Name = "chebyshevToolStripMenuItem";
-            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(132, 22);
+            this.chebyshevToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.chebyshevToolStripMenuItem.Text = "Chebyshev";
             this.chebyshevToolStripMenuItem.Click += new System.EventHandler(this.chebyshevToolStripMenuItem_Click);
             // 
@@ -403,29 +363,6 @@
             this.defaultGridSizeToolStripMenuItem.Text = "Default Grid size";
             this.defaultGridSizeToolStripMenuItem.Click += new System.EventHandler(this.defaultGridSizeToolStripMenuItem_Click);
             // 
-            // mapToolStripMenuItem
-            // 
-            this.mapToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.importToolStripMenuItem,
-            this.exportToolStripMenuItem});
-            this.mapToolStripMenuItem.Name = "mapToolStripMenuItem";
-            this.mapToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
-            this.mapToolStripMenuItem.Text = "Map";
-            // 
-            // importToolStripMenuItem
-            // 
-            this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.importToolStripMenuItem.Text = "Import";
-            this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
-            // 
-            // exportToolStripMenuItem
-            // 
-            this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exportToolStripMenuItem.Text = "Export";
-            this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
-            // 
             // ofd_importmap
             // 
             this.ofd_importmap.FileName = "openFileDialog1";
@@ -471,10 +408,6 @@
         private System.Windows.Forms.NumericUpDown nUD_AGVs;
         private System.Windows.Forms.MenuStrip settings_menu;
         private System.Windows.Forms.ToolStripMenuItem aToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem parametresToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem alwaysCrossMenu;
-        private System.Windows.Forms.ToolStripMenuItem neverCrossMenu;
-        private System.Windows.Forms.ToolStripMenuItem atLeastOneMenu;
         private System.Windows.Forms.ToolStripMenuItem heuristicModeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manhattanToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem euclideanToolStripMenuItem;
@@ -482,10 +415,7 @@
         private System.Windows.Forms.ColorDialog cd_grid;
         private System.Windows.Forms.GroupBox gb_settings;
         private System.Windows.Forms.GroupBox gb_agvs;
-        private System.Windows.Forms.ToolStripMenuItem priorityRulesbetaToolStripMenuItem;
         private System.Windows.Forms.NumericUpDown nud_weight;
-        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
-        private System.Windows.Forms.ToolStripMenuItem noObstaclesMenu;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.ToolStripMenuItem gridToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem showToolStripMenuItem;

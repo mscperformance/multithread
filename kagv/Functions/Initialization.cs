@@ -33,7 +33,7 @@ namespace kagv {
         //Initializes all the objects in main_form
         private void Initialization() {
 
-            DiagonalMovement diagonalMovement=DiagonalMovement.Always;
+            DiagonalMovement diagonalMovement=DiagonalMovement.OnlyWhenNoObstacles;
             HeuristicMode heuristicMode = HeuristicMode.Manhattan;
           
             //m_rectangels is an array of two 1d arrays

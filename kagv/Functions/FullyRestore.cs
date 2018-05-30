@@ -69,21 +69,19 @@ namespace kagv {
 
             _searchGrid = new StaticGrid(Globals.WidthBlocks, Globals.HeightBlocks);
 
-            _alwaysCross =
+           
             aGVIndexToolStripMenuItem.Checked =
             _beforeStart =
             _allowHighlight = true;
-
+            
             _imported =
+            _alwaysCross =
             _atLeastOneObstacle =
-            _ifNoObstacles =
             _never =
             _imported =
             _calibrated =
             _isMouseDown = false;
-            
-            priorityRulesbetaToolStripMenuItem.Checked = false;
-            
+       
             _jumpParam = null;
             _paper = null;
             _loads = _posIndex = 0;
