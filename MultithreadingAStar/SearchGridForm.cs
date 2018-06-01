@@ -62,7 +62,7 @@ namespace MultiThreadingAStar
             // searchGrid = new DynamicGrid();
             //searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
-            jumpParam = new JumpPointParam(searchGrid, EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement.OnlyWhenNoObstacles, HeuristicMode.EUCLIDEAN)
+            jumpParam = new JumpPointParam(searchGrid, EndNodeUnWalkableTreatment.ALLOW, HeuristicMode.EUCLIDEAN)
             {
                 CurIterationType = IterationType.LOOP
             };

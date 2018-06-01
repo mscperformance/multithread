@@ -22,7 +22,7 @@ namespace MultiThreadingAStar
     {
         [System.Obsolete("This constructor is deprecated, please use the Constructor with EndNodeUnWalkableTreatment and DiagonalMovement instead.")]
         public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            :base(iGrid, iStartPos, iEndPos, Util.GetDiagonalMovement(iCrossCorner, iCrossAdjacentPoint), iMode)
+            :base(iGrid, iStartPos, iEndPos, iMode)
         {
             CurEndNodeUnWalkableTreatment = iAllowEndNodeUnWalkable ? EndNodeUnWalkableTreatment.ALLOW : EndNodeUnWalkableTreatment.DISALLOW;
             openList = new IntervalHeap<Node>();
@@ -32,7 +32,7 @@ namespace MultiThreadingAStar
 
         [System.Obsolete("This constructor is deprecated, please use the Constructor with EndNodeUnWalkableTreatment and DiagonalMovement instead.")]
         public JumpPointParam(BaseGrid iGrid, bool iAllowEndNodeUnWalkable = true, bool iCrossCorner = true, bool iCrossAdjacentPoint = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            : base(iGrid, Util.GetDiagonalMovement(iCrossCorner, iCrossAdjacentPoint), iMode)
+            : base(iGrid, iMode)
         {
             CurEndNodeUnWalkableTreatment = iAllowEndNodeUnWalkable ? EndNodeUnWalkableTreatment.ALLOW : EndNodeUnWalkableTreatment.DISALLOW;
 
@@ -41,8 +41,8 @@ namespace MultiThreadingAStar
         }
 
         [System.Obsolete("This constructor is deprecated, please use the Constructor with EndNodeUnWalkableTreatment and DiagonalMovement instead.")]
-        public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, bool iAllowEndNodeUnWalkable = true, DiagonalMovement iDiagonalMovement= DiagonalMovement.Always, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            : base(iGrid,iStartPos,iEndPos, iDiagonalMovement, iMode)
+        public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, bool iAllowEndNodeUnWalkable = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+            : base(iGrid,iStartPos,iEndPos, iMode)
         {
 
             CurEndNodeUnWalkableTreatment = iAllowEndNodeUnWalkable ? EndNodeUnWalkableTreatment.ALLOW : EndNodeUnWalkableTreatment.DISALLOW;
@@ -52,8 +52,8 @@ namespace MultiThreadingAStar
         }
 
         [System.Obsolete("This constructor is deprecated, please use the Constructor with EndNodeUnWalkableTreatment and DiagonalMovement instead.")]
-        public JumpPointParam(BaseGrid iGrid, bool iAllowEndNodeUnWalkable = true, DiagonalMovement iDiagonalMovement= DiagonalMovement.Always, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            : base(iGrid, iDiagonalMovement, iMode)
+        public JumpPointParam(BaseGrid iGrid, bool iAllowEndNodeUnWalkable = true, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+            : base(iGrid, iMode)
         {
             CurEndNodeUnWalkableTreatment = iAllowEndNodeUnWalkable ? EndNodeUnWalkableTreatment.ALLOW : EndNodeUnWalkableTreatment.DISALLOW;
             
@@ -62,8 +62,8 @@ namespace MultiThreadingAStar
         }
 
 
-        public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, EndNodeUnWalkableTreatment iAllowEndNodeUnWalkable = EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement iDiagonalMovement = DiagonalMovement.Always, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            : base(iGrid, iStartPos, iEndPos, iDiagonalMovement, iMode)
+        public JumpPointParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, EndNodeUnWalkableTreatment iAllowEndNodeUnWalkable = EndNodeUnWalkableTreatment.ALLOW, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+            : base(iGrid, iStartPos, iEndPos,  iMode)
         {
 
             CurEndNodeUnWalkableTreatment = iAllowEndNodeUnWalkable;
@@ -72,8 +72,8 @@ namespace MultiThreadingAStar
             CurIterationType = IterationType.LOOP;
         }
 
-        public JumpPointParam(BaseGrid iGrid, EndNodeUnWalkableTreatment iAllowEndNodeUnWalkable = EndNodeUnWalkableTreatment.ALLOW, DiagonalMovement iDiagonalMovement = DiagonalMovement.Always, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            : base(iGrid, iDiagonalMovement, iMode)
+        public JumpPointParam(BaseGrid iGrid, EndNodeUnWalkableTreatment iAllowEndNodeUnWalkable = EndNodeUnWalkableTreatment.ALLOW, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+            : base(iGrid, iMode)
         {
             CurEndNodeUnWalkableTreatment = iAllowEndNodeUnWalkable;
 
@@ -335,88 +335,7 @@ namespace MultiThreadingAStar
 
                         currentSnapshot.tDx = currentSnapshot.iX - currentSnapshot.iPx;
                         currentSnapshot.tDy = currentSnapshot.iY - currentSnapshot.iPy;
-                        if (iParam.DiagonalMovement == DiagonalMovement.Always || iParam.DiagonalMovement == DiagonalMovement.IfAtLeastOneWalkable)
-                        {
-                            // check for forced neighbors
-                            // along the diagonal
-                            if (currentSnapshot.tDx != 0 && currentSnapshot.tDy != 0)
-                            {
-                                if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - currentSnapshot.tDx, currentSnapshot.iY + currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - currentSnapshot.tDx, currentSnapshot.iY)) ||
-                                    (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY - currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY - currentSnapshot.tDy)))
-                                {
-                                    retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
-                                    continue;
-                                }
-                            }
-                            // horizontally/vertically
-                            else
-                            {
-                                if (currentSnapshot.tDx != 0)
-                                {
-                                    // moving along x
-                                    if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY + 1) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + 1)) ||
-                                        (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY - 1) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY - 1)))
-                                    {
-                                        retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
-                                        continue;
-                                    }
-                                }
-                                else
-                                {
-                                    if ((iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + 1, currentSnapshot.iY + currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + 1, currentSnapshot.iY)) ||
-                                        (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - 1, currentSnapshot.iY + currentSnapshot.tDy) && !iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX - 1, currentSnapshot.iY)))
-                                    {
-                                        retVal = new GridPos(currentSnapshot.iX, currentSnapshot.iY);
-                                        continue;
-                                    }
-                                }
-                            }
-                            // when moving diagonally, must check for vertical/horizontal jump points
-                            if (currentSnapshot.tDx != 0 && currentSnapshot.tDy != 0)
-                            {
-                                currentSnapshot.stage = 1;
-                                stack.Push(currentSnapshot);
-
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
-                                stack.Push(newSnapshot);
-                                continue;
-                            }
-
-                            // moving diagonally, must make sure one of the vertical/horizontal
-                            // neighbors is open to allow the path
-
-                            // moving diagonally, must make sure one of the vertical/horizontal
-                            // neighbors is open to allow the path
-                            if (iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY) || iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + currentSnapshot.tDy))
-                            {
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
-                                stack.Push(newSnapshot);
-                                continue;
-                            }
-                            else if (iParam.DiagonalMovement==DiagonalMovement.Always)
-                            {
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                                newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
-                                stack.Push(newSnapshot);
-                                continue;
-                            }
-                        }
-                        else if (iParam.DiagonalMovement == DiagonalMovement.OnlyWhenNoObstacles)
-                        {
+                      
                             // check for forced neighbors
                             // along the diagonal
                             if (currentSnapshot.tDx != 0 && currentSnapshot.tDy != 0)
@@ -482,58 +401,7 @@ namespace MultiThreadingAStar
                                 stack.Push(newSnapshot);
                                 continue;
                             }
-                        }
-                        else // if(iParam.DiagonalMovement == DiagonalMovement.Never)
-                        {
-                            if (currentSnapshot.tDx != 0)
-                            {
-                                // moving along x
-                                if (!iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX + currentSnapshot.tDx, currentSnapshot.iY))
-                                {
-                                    retVal= new GridPos(iX, iY);
-                                    continue;
-                                }
-                            }
-                            else
-                            {
-                                if (!iParam.SearchGrid.IsWalkableAt(currentSnapshot.iX, currentSnapshot.iY + currentSnapshot.tDy))
-                                {
-                                    retVal = new GridPos(iX, iY);
-                                    continue;
-                                }
-                            }
-
-                            //  must check for perpendicular jump points
-                            if (currentSnapshot.tDx != 0)
-                            {
-                                currentSnapshot.stage = 5;
-                                stack.Push(currentSnapshot);
-
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX;
-                                newSnapshot.iY = currentSnapshot.iY + 1;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
-                                stack.Push(newSnapshot);
-                                continue;
-                            }
-                            else // tDy != 0
-                            {
-                                currentSnapshot.stage = 6;
-                                stack.Push(currentSnapshot);
-
-                                newSnapshot = new JumpSnapshot();
-                                newSnapshot.iX = currentSnapshot.iX + 1;
-                                newSnapshot.iY = currentSnapshot.iY;
-                                newSnapshot.iPx = currentSnapshot.iX;
-                                newSnapshot.iPy = currentSnapshot.iY;
-                                newSnapshot.stage = 0;
-                                stack.Push(newSnapshot);
-                                continue;
-
-                            }
-                        }
+                       
                         retVal = null;
                         break;
                     case 1:
@@ -574,17 +442,7 @@ namespace MultiThreadingAStar
                             stack.Push(newSnapshot);
                             continue;
                         }
-                        else if (iParam.DiagonalMovement==DiagonalMovement.Always)
-                        {
-                            newSnapshot = new JumpSnapshot();
-                            newSnapshot.iX = currentSnapshot.iX + currentSnapshot.tDx;
-                            newSnapshot.iY = currentSnapshot.iY + currentSnapshot.tDy;
-                            newSnapshot.iPx = currentSnapshot.iX;
-                            newSnapshot.iPy = currentSnapshot.iY;
-                            newSnapshot.stage = 0;
-                            stack.Push(newSnapshot);
-                            continue;
-                        }
+                       
                         retVal = null;
                         break;
                     case 3:
@@ -701,69 +559,7 @@ namespace MultiThreadingAStar
 
             int tDx = iX - iPx;
             int tDy = iY - iPy;
-            if (iParam.DiagonalMovement == DiagonalMovement.Always || iParam.DiagonalMovement == DiagonalMovement.IfAtLeastOneWalkable)
-            {
-                // check for forced neighbors
-                // along the diagonal
-                if (tDx != 0 && tDy != 0)
-                {
-                    if ((iParam.SearchGrid.IsWalkableAt(iX - tDx, iY + tDy) && !iParam.SearchGrid.IsWalkableAt(iX - tDx, iY)) ||
-                        (iParam.SearchGrid.IsWalkableAt(iX + tDx, iY - tDy) && !iParam.SearchGrid.IsWalkableAt(iX, iY - tDy)))
-                    {
-                        return new GridPos(iX, iY);
-                    }
-                }
-                // horizontally/vertically
-                else
-                {
-                    if (tDx != 0)
-                    {
-                        // moving along x
-                        if ((iParam.SearchGrid.IsWalkableAt(iX + tDx, iY + 1) && !iParam.SearchGrid.IsWalkableAt(iX, iY + 1)) ||
-                            (iParam.SearchGrid.IsWalkableAt(iX + tDx, iY - 1) && !iParam.SearchGrid.IsWalkableAt(iX, iY - 1)))
-                        {
-                            return new GridPos(iX, iY);
-                        }
-                    }
-                    else
-                    {
-                        if ((iParam.SearchGrid.IsWalkableAt(iX + 1, iY + tDy) && !iParam.SearchGrid.IsWalkableAt(iX + 1, iY)) ||
-                            (iParam.SearchGrid.IsWalkableAt(iX - 1, iY + tDy) && !iParam.SearchGrid.IsWalkableAt(iX - 1, iY)))
-                        {
-                            return new GridPos(iX, iY);
-                        }
-                    }
-                }
-                // when moving diagonally, must check for vertical/horizontal jump points
-                if (tDx != 0 && tDy != 0)
-                {
-                    if (jump(iParam, iX + tDx, iY, iX, iY) != null)
-                    {
-                        return new GridPos(iX, iY);
-                    }
-                    if (jump(iParam, iX, iY + tDy, iX, iY) != null)
-                    {
-                        return new GridPos(iX, iY);
-                    }
-                }
-
-                // moving diagonally, must make sure one of the vertical/horizontal
-                // neighbors is open to allow the path
-                if (iParam.SearchGrid.IsWalkableAt(iX + tDx, iY) || iParam.SearchGrid.IsWalkableAt(iX, iY + tDy))
-                {
-                    return jump(iParam, iX + tDx, iY + tDy, iX, iY);
-                }
-                else if (iParam.DiagonalMovement == DiagonalMovement.Always)
-                {
-                    return jump(iParam, iX + tDx, iY + tDy, iX, iY);
-                }
-                else
-                {
-                    return null;
-                }
-            }
-            else if (iParam.DiagonalMovement == DiagonalMovement.OnlyWhenNoObstacles)
-            {
+           
                 // check for forced neighbors
                 // along the diagonal
                 if (tDx != 0 && tDy != 0)
@@ -813,47 +609,7 @@ namespace MultiThreadingAStar
                 {
                     return null;
                 }
-            }
-            else // if(iParam.DiagonalMovement == DiagonalMovement.Never)
-            {
-                if (tDx != 0)
-                {
-                    // moving along x
-                    if (!iParam.SearchGrid.IsWalkableAt(iX + tDx, iY))
-                    {
-                        return new GridPos(iX, iY);
-                    }
-                }
-                else
-                {
-                    if (!iParam.SearchGrid.IsWalkableAt(iX, iY + tDy))
-                    {
-                        return new GridPos(iX, iY);
-                    }
-                }
-
-                //  must check for perpendicular jump points
-                if (tDx != 0 )
-                {
-                    if (jump(iParam, iX, iY + 1, iX, iY) != null) return new GridPos(iX, iY);
-                    if (jump(iParam, iX, iY - 1, iX, iY) != null) return new GridPos(iX, iY);
-                }
-                else // tDy != 0
-                {
-                    if (jump(iParam, iX + 1, iY, iX, iY) != null) return new GridPos(iX, iY);
-                    if (jump(iParam, iX - 1, iY, iX, iY) != null) return new GridPos(iX, iY);
-                }
-
-                // keep going
-                if (iParam.SearchGrid.IsWalkableAt(iX + tDx, iY) && iParam.SearchGrid.IsWalkableAt(iX, iY + tDy))
-                {
-                    return jump(iParam, iX + tDx, iY + tDy, iX, iY);
-                }
-                else
-                {
-                    return null;
-                }
-            }
+           
         }
 
         private static List<GridPos> findNeighbors(JumpPointParam iParam, Node iNode)
@@ -876,120 +632,7 @@ namespace MultiThreadingAStar
                 tDx = (tX - tPx) / Math.Max(Math.Abs(tX - tPx), 1);
                 tDy = (tY - tPy) / Math.Max(Math.Abs(tY - tPy), 1);
 
-                if (iParam.DiagonalMovement == DiagonalMovement.Always || iParam.DiagonalMovement == DiagonalMovement.IfAtLeastOneWalkable)
-                {
-                    // search diagonally
-                    if (tDx != 0 && tDy != 0)
-                    {
-                        if (iParam.SearchGrid.IsWalkableAt(tX, tY + tDy))
-                        {
-                            tNeighbors.Add(new GridPos(tX, tY + tDy));
-                        }
-                        if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
-                        {
-                            tNeighbors.Add(new GridPos(tX + tDx, tY));
-                        }
-
-                        if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY + tDy))
-                        {
-                            if (iParam.SearchGrid.IsWalkableAt(tX, tY + tDy) || iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
-                            {
-                                tNeighbors.Add(new GridPos(tX + tDx, tY + tDy));
-                            }
-                            else if (iParam.DiagonalMovement == DiagonalMovement.Always)
-                            {
-                                tNeighbors.Add(new GridPos(tX + tDx, tY + tDy));
-                            }
-                        }
-
-                        if (iParam.SearchGrid.IsWalkableAt(tX - tDx, tY + tDy) && !iParam.SearchGrid.IsWalkableAt(tX - tDx, tY))
-                        {
-                            if (iParam.SearchGrid.IsWalkableAt(tX, tY + tDy))
-                            {
-                                tNeighbors.Add(new GridPos(tX - tDx, tY + tDy));
-                            }
-                            else if (iParam.DiagonalMovement == DiagonalMovement.Always)
-                            {
-                                tNeighbors.Add(new GridPos(tX - tDx, tY + tDy));
-                            }
-                        }
-
-                        if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY - tDy) && !iParam.SearchGrid.IsWalkableAt(tX, tY - tDy))
-                        {
-                            if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
-                            {
-                                tNeighbors.Add(new GridPos(tX + tDx, tY - tDy));
-                            }
-                            else if (iParam.DiagonalMovement == DiagonalMovement.Always)
-                            {
-                                tNeighbors.Add(new GridPos(tX + tDx, tY - tDy));
-                            }
-                        }
-
-
-                    }
-                    // search horizontally/vertically
-                    else
-                    {
-                        if (tDx != 0)
-                        {
-                            if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
-                            {
-
-                                tNeighbors.Add(new GridPos(tX + tDx, tY));
-
-                                if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY + 1) && !iParam.SearchGrid.IsWalkableAt(tX, tY + 1))
-                                {
-                                    tNeighbors.Add(new GridPos(tX + tDx, tY + 1));
-                                }
-                                if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY - 1) && !iParam.SearchGrid.IsWalkableAt(tX, tY - 1))
-                                {
-                                    tNeighbors.Add(new GridPos(tX + tDx, tY - 1));
-                                }
-                            }
-                            else if (iParam.DiagonalMovement == DiagonalMovement.Always)
-                            {
-                                if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY + 1) && !iParam.SearchGrid.IsWalkableAt(tX, tY + 1))
-                                {
-                                    tNeighbors.Add(new GridPos(tX + tDx, tY + 1));
-                                }
-                                if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY - 1) && !iParam.SearchGrid.IsWalkableAt(tX, tY - 1))
-                                {
-                                    tNeighbors.Add(new GridPos(tX + tDx, tY - 1));
-                                }
-                            }
-                        }
-                        else
-                        {
-                            if (iParam.SearchGrid.IsWalkableAt(tX, tY + tDy))
-                            {
-                                tNeighbors.Add(new GridPos(tX, tY + tDy));
-
-                                if (iParam.SearchGrid.IsWalkableAt(tX + 1, tY + tDy) && !iParam.SearchGrid.IsWalkableAt(tX + 1, tY))
-                                {
-                                    tNeighbors.Add(new GridPos(tX + 1, tY + tDy));
-                                }
-                                if (iParam.SearchGrid.IsWalkableAt(tX - 1, tY + tDy) && !iParam.SearchGrid.IsWalkableAt(tX - 1, tY))
-                                {
-                                    tNeighbors.Add(new GridPos(tX - 1, tY + tDy));
-                                }
-                            }
-                            else if (iParam.DiagonalMovement == DiagonalMovement.Always)
-                            {
-                                if (iParam.SearchGrid.IsWalkableAt(tX + 1, tY + tDy) && !iParam.SearchGrid.IsWalkableAt(tX + 1, tY))
-                                {
-                                    tNeighbors.Add(new GridPos(tX + 1, tY + tDy));
-                                }
-                                if (iParam.SearchGrid.IsWalkableAt(tX - 1, tY + tDy) && !iParam.SearchGrid.IsWalkableAt(tX - 1, tY))
-                                {
-                                    tNeighbors.Add(new GridPos(tX - 1, tY + tDy));
-                                }
-                            }
-                        }
-                    }
-                }
-                else if (iParam.DiagonalMovement == DiagonalMovement.OnlyWhenNoObstacles)
-                {
+                
                     // search diagonally
                     if (tDx != 0 && tDy != 0)
                     {
@@ -1067,46 +710,13 @@ namespace MultiThreadingAStar
                                 tNeighbors.Add(new GridPos(tX - 1, tY));
                         }
                     }
-                }
-                else // if(iParam.DiagonalMovement == DiagonalMovement.Never)
-                {
-                    if (tDx != 0)
-                    {
-                        if (iParam.SearchGrid.IsWalkableAt(tX + tDx, tY))
-                        {
-                            tNeighbors.Add(new GridPos(tX + tDx, tY));
-                        }
-                        if (iParam.SearchGrid.IsWalkableAt(tX, tY + 1))
-                        {
-                            tNeighbors.Add(new GridPos(tX, tY +1));
-                        }
-                        if (iParam.SearchGrid.IsWalkableAt(tX, tY - 1))
-                        {
-                            tNeighbors.Add(new GridPos(tX, tY - 1));
-                        }
-                    }
-                    else // if (tDy != 0)
-                    {
-                        if (iParam.SearchGrid.IsWalkableAt(tX, tY +tDy))
-                        {
-                            tNeighbors.Add(new GridPos(tX, tY + tDy));
-                        }
-                        if (iParam.SearchGrid.IsWalkableAt(tX + 1, tY))
-                        {
-                            tNeighbors.Add(new GridPos(tX + 1, tY));
-                        }
-                        if (iParam.SearchGrid.IsWalkableAt(tX - 1, tY))
-                        {
-                            tNeighbors.Add(new GridPos(tX - 1, tY));
-                        }
-                    }
-                }
+               
 
             }
             // return all neighbors
             else
             {
-                tNeighborNodes = iParam.SearchGrid.GetNeighbors(iNode, iParam.DiagonalMovement);
+                tNeighborNodes = iParam.SearchGrid.GetNeighbors(iNode);
                 for (int i = 0; i < tNeighborNodes.Count; i++)
                 {
                     tNeighborNode = tNeighborNodes[i];

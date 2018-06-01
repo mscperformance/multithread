@@ -13,14 +13,14 @@ namespace MultiThreadingAStar
 
         public float Weight;
 
-        public AStarParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, float iweight, DiagonalMovement iDiagonalMovement = DiagonalMovement.Always, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            : base(iGrid,iStartPos,iEndPos, iDiagonalMovement,iMode)
+        public AStarParam(BaseGrid iGrid, GridPos iStartPos, GridPos iEndPos, float iweight, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+            : base(iGrid,iStartPos,iEndPos,iMode)
         {
             Weight = iweight;
         }
 
-        public AStarParam(BaseGrid iGrid, float iweight, DiagonalMovement iDiagonalMovement = DiagonalMovement.Always, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
-            : base(iGrid, iDiagonalMovement, iMode)
+        public AStarParam(BaseGrid iGrid, float iweight, HeuristicMode iMode = HeuristicMode.EUCLIDEAN)
+            : base(iGrid, iMode)
         {
             Weight = iweight;
         }
@@ -57,7 +57,6 @@ namespace MultiThreadingAStar
             var endNode = iParam.EndNode;
             var heuristic = iParam.HeuristicFunc;
             var grid = iParam.SearchGrid;
-            var diagonalMovement = iParam.DiagonalMovement;
             var weight = iParam.Weight;
 
 
@@ -77,7 +76,7 @@ namespace MultiThreadingAStar
                     return Node.Backtrace(endNode);
                 }
 
-                var neighbors = grid.GetNeighbors(node, diagonalMovement);
+                var neighbors = grid.GetNeighbors(node);
 
 #if (UNITY)
                 foreach(var neighbor in neighbors)

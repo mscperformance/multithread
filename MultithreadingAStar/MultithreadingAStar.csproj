@@ -67,14 +67,12 @@
   <ItemGroup>
     <Compile Include="Libs\AStarFinder.cs" />
     <Compile Include="Libs\GridLibs\BaseGrid.cs" />
-    <Compile Include="Libs\DiagonalMovement.cs" />
     <Compile Include="Libs\GridLibs\GridPos.cs" />
     <Compile Include="Libs\GridLibs\GridRect.cs" />
     <Compile Include="Libs\Heuristic.cs" />
     <Compile Include="Libs\JumpPointFinder.cs" />
     <Compile Include="Libs\ParamBase.cs" />
     <Compile Include="Libs\GridLibs\StaticGrid.cs" />
-    <Compile Include="Libs\Util.cs" />
     <Compile Include="SearchGridForm.cs">
       <SubType>Form</SubType>
     </Compile>
