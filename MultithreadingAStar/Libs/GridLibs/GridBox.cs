@@ -32,8 +32,8 @@ namespace MultiThreadingAStar
                     break;
             
             }
-            width = 18;
-            height = 18;
+            width = 9;
+            height = 9;
             boxRec = new Rectangle(x, y, width, height);
         }
 

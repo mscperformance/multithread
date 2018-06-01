@@ -9,8 +9,8 @@ namespace MultiThreadingAStar
         bool isMouseDown;
         bool isMultiThreading=true;
 
-        const int width = 64;
-        const int height = 32;
+        const int width = 128;
+        const int height = 64;
         Graphics paper;
 
         GridBox[][] m_rectangles;
@@ -28,8 +28,8 @@ namespace MultiThreadingAStar
             DoubleBuffered = true;
 
             m_resultBox = new List<ResultBox>();
-            Width = (width + 1) * 20;
-            Height = (height + 1) * 20 + 100;
+            Width = (width + 1) * 10;
+            Height = (height + 1) * 10 + 100;
             MaximumSize = new Size(Width, Height);
             MaximizeBox = false;
 
@@ -40,11 +40,11 @@ namespace MultiThreadingAStar
                 for (int heightTrav = 0; heightTrav < height; heightTrav++)
                 {
                     if (widthTrav == (width / 3) && heightTrav == (height / 2))
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + 50, BoxType.Start);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 10, heightTrav * 10 + 50, BoxType.Start);
                     else if (widthTrav == 41 && heightTrav == (height / 2))
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + 50, BoxType.End);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 10, heightTrav * 10 + 50, BoxType.End);
                     else
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + 50, BoxType.Normal);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 10, heightTrav * 10 + 50, BoxType.Normal);
 
 
                 }
@@ -319,12 +319,12 @@ namespace MultiThreadingAStar
                         continue;
                     if (jumpParam.SearchGrid.GetNodeAt(widthTrav, heightTrav).isOpened)
                     {
-                        ResultBox resultBox = new ResultBox(widthTrav * 20, heightTrav * 20 + 50, ResultBoxType.Opened);
+                        ResultBox resultBox = new ResultBox(widthTrav * 10, heightTrav * 10 + 50, ResultBoxType.Opened);
                         m_resultBox.Add(resultBox);
                     }
                     if (jumpParam.SearchGrid.GetNodeAt(widthTrav, heightTrav).isClosed)
                     {
-                        ResultBox resultBox = new ResultBox(widthTrav * 20, heightTrav * 20 + 50, ResultBoxType.Closed);
+                        ResultBox resultBox = new ResultBox(widthTrav * 10, heightTrav * 10 + 50, ResultBoxType.Closed);
                         m_resultBox.Add(resultBox);
                     }
                 }

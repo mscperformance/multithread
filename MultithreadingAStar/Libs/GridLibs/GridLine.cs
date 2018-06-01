@@ -9,10 +9,10 @@ namespace MultiThreadingAStar
         
         public GridLine(GridBox iFrom, GridBox iTo)
         {
-            this.fromX = iFrom.boxRec.X + 9;
-            this.fromY = iFrom.boxRec.Y + 9;
-            this.toX = iTo.boxRec.X + 9;
-            this.toY = iTo.boxRec.Y + 9;
+            this.fromX = iFrom.boxRec.X + 4;
+            this.fromY = iFrom.boxRec.Y + 4;
+            this.toX = iTo.boxRec.X + 4;
+            this.toY = iTo.boxRec.Y + 4;
             pen = new Pen(Color.Yellow);
             pen.Width = 2;
             
