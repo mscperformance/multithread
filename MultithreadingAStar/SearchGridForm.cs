@@ -1,12 +1,5 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using System.Collections.Generic;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace MultiThreadingAStar
@@ -60,9 +53,7 @@ namespace MultiThreadingAStar
 
             m_resultLine = new List<GridLine>();
 
-             searchGrid = new StaticGrid(width, height);
-            // searchGrid = new DynamicGrid();
-            //searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
+            searchGrid = new StaticGrid(width, height);
 
             jumpParam = new AStarParam(searchGrid, 50, HeuristicMode.EUCLIDEAN);
           
