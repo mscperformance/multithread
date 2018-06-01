@@ -17,7 +17,6 @@
         public ParamBase(BaseGrid iGrid, HeuristicMode iMode)
         {
             SetHeuristic(iMode);
-
             m_searchGrid = iGrid;
             m_startNode = null;
             m_endNode = null;
@@ -84,21 +83,7 @@
         public void SetHeuristic(HeuristicMode iMode)
         {
             m_heuristic = null;
-            switch (iMode)
-            {
-                case HeuristicMode.MANHATTAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Manhattan);
-                    break;
-                case HeuristicMode.EUCLIDEAN:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-                case HeuristicMode.CHEBYSHEV:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Chebyshev);
-                    break;
-                default:
-                    m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
-                    break;
-            }
+            m_heuristic = new HeuristicDelegate(Heuristic.Euclidean);
         }
 
         protected BaseGrid m_searchGrid;
