@@ -35,6 +35,7 @@
             this.btn_export = new System.Windows.Forms.Button();
             this.ofd_importmap = new System.Windows.Forms.OpenFileDialog();
             this.sfd_exportmap = new System.Windows.Forms.SaveFileDialog();
+            this.lb_istrue = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // btn_benchmark
@@ -50,7 +51,7 @@
             // lb_multi
             // 
             this.lb_multi.AutoSize = true;
-            this.lb_multi.Location = new System.Drawing.Point(282, 17);
+            this.lb_multi.Location = new System.Drawing.Point(276, 9);
             this.lb_multi.Name = "lb_multi";
             this.lb_multi.Size = new System.Drawing.Size(163, 13);
             this.lb_multi.TabIndex = 10;
@@ -93,12 +94,22 @@
             // 
             this.ofd_importmap.FileName = "openFileDialog1";
             // 
+            // lb_istrue
+            // 
+            this.lb_istrue.AutoSize = true;
+            this.lb_istrue.Location = new System.Drawing.Point(279, 26);
+            this.lb_istrue.Name = "lb_istrue";
+            this.lb_istrue.Size = new System.Drawing.Size(10, 13);
+            this.lb_istrue.TabIndex = 13;
+            this.lb_istrue.Text = "-";
+            // 
             // SearchGridForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
             this.ClientSize = new System.Drawing.Size(747, 284);
+            this.Controls.Add(this.lb_istrue);
             this.Controls.Add(this.btn_export);
             this.Controls.Add(this.btn_import);
             this.Controls.Add(this.cb_multi);
@@ -124,6 +135,7 @@
         private System.Windows.Forms.Button btn_export;
         private System.Windows.Forms.OpenFileDialog ofd_importmap;
         private System.Windows.Forms.SaveFileDialog sfd_exportmap;
+        private System.Windows.Forms.Label lb_istrue;
     }
 }
 

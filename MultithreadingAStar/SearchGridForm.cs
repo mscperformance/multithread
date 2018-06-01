@@ -371,7 +371,7 @@ namespace MultiThreadingAStar
             System.Diagnostics.Stopwatch s = new System.Diagnostics.Stopwatch();
             s.Start();
             jumpParam.Reset(startPos, endPos);
-            resultList = AStarFinder.FindPath(jumpParam, isMultiThreading);
+            resultList = AStarFinder.FindPath(jumpParam, isMultiThreading,lb_istrue);
             double time = s.ElapsedMilliseconds;
             s.Reset();
 

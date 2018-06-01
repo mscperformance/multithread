@@ -2,7 +2,7 @@
 using C5;
 using System;
 using System.Collections.Generic;
-
+using System.Windows.Forms;
 
 namespace MultiThreadingAStar
 {
@@ -48,7 +48,7 @@ namespace MultiThreadingAStar
             }
         }
         */
-        public static List<GridPos> FindPath(AStarParam iParam,bool iMultiThread)
+        public static List<GridPos> FindPath(AStarParam iParam,bool iMultiThread,Label s)
         {
             object lo = new object();
             //var openList = new IntervalHeap<Node>(new NodeComparer());
@@ -81,6 +81,7 @@ namespace MultiThreadingAStar
 
                 if (iMultiThread)
                 {
+                    s.Text = "true ";
                     Parallel.ForEach(neighbors, new ParallelOptions { MaxDegreeOfParallelism = 2 }, neighbor =>
                     {
                         if (neighbor.isClosed) return;
@@ -113,6 +114,7 @@ namespace MultiThreadingAStar
                 }
                 else
                 {
+                    s.Text = "false ";
                     foreach (Node neighbor in neighbors)
                     {
                         if (neighbor.isClosed) continue;
