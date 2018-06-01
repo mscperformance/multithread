@@ -13,6 +13,8 @@ namespace MultiThreadingAStar
 {
     public partial class SearchGridForm : Form
     {
+        bool isMouseDown;
+        
         const int width = 64;
         const int height = 32;
         Graphics paper;
@@ -110,102 +112,109 @@ namespace MultiThreadingAStar
 
         private void Form1_MouseUp(object sender, MouseEventArgs e)
         {
+            isMouseDown = false;
             if (e.Button == MouseButtons.Left)
             {
                 m_lastBoxSelect = null;
             }
-           
+            Redraw();
+
         }
 
         private void Form1_MouseMove(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
+            if (isMouseDown)
             {
-                if (m_lastBoxSelect == null)
+                if (e.Button == MouseButtons.Left)
                 {
-                    for (int widthTrav = 0; widthTrav < width; widthTrav++)
+                    if (m_lastBoxSelect == null)
                     {
-                        for (int heightTrav = 0; heightTrav < height; heightTrav++)
+                        for (int widthTrav = 0; widthTrav < width; widthTrav++)
                         {
-                            if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1))))
+                            for (int heightTrav = 0; heightTrav < height; heightTrav++)
                             {
-                                m_lastBoxType = m_rectangles[widthTrav][heightTrav].boxType;
-                                m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
-                                switch (m_lastBoxType)
+                                if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1))))
                                 {
-                                    case BoxType.Normal:
-                                    case BoxType.Wall:
-                                        m_rectangles[widthTrav][heightTrav].SwitchBox();
-                                        this.Invalidate();
-                                        break;
-                                    case BoxType.Start:
-                                    case BoxType.End:
-
-                                        break;
-                                }
-                            }
-
-
-                        }
-                    }
-                    
-                    return;
-                }
-                else
-                {
-                    for (int widthTrav = 0; widthTrav < width; widthTrav++)
-                    {
-                        for (int heightTrav = 0; heightTrav < height; heightTrav++)
-                        {
-                            if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1))))
-                            {
-                                if (m_rectangles[widthTrav][heightTrav] == m_lastBoxSelect)
-                                {
-                                    return;
-                                }
-                                else
-                                {
-
+                                    m_lastBoxType = m_rectangles[widthTrav][heightTrav].boxType;
+                                    m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
                                     switch (m_lastBoxType)
                                     {
                                         case BoxType.Normal:
                                         case BoxType.Wall:
-                                            if (m_rectangles[widthTrav][heightTrav].boxType == m_lastBoxType)
-                                            {
-                                                m_rectangles[widthTrav][heightTrav].SwitchBox();
-                                                m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
-                                                this.Invalidate();
-                                            }
+                                            m_rectangles[widthTrav][heightTrav].SwitchBox();
+                                            this.Invalidate();
                                             break;
                                         case BoxType.Start:
-                                            m_lastBoxSelect.SetNormalBox();
-                                            m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
-                                            m_lastBoxSelect.SetStartBox();
-                                            this.Invalidate();
-                                            break;
                                         case BoxType.End:
-                                            m_lastBoxSelect.SetNormalBox();
-                                            m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
-                                            m_lastBoxSelect.SetEndBox();
-                                            this.Invalidate();
+
                                             break;
                                     }
-                                    
-
                                 }
+
+
                             }
+                        }
+
+                        return;
+                    }
+                    else
+                    {
+                        for (int widthTrav = 0; widthTrav < width; widthTrav++)
+                        {
+                            for (int heightTrav = 0; heightTrav < height; heightTrav++)
+                            {
+                                if (m_rectangles[widthTrav][heightTrav].boxRec.IntersectsWith(new Rectangle(e.Location, new Size(1, 1))))
+                                {
+                                    if (m_rectangles[widthTrav][heightTrav] == m_lastBoxSelect)
+                                    {
+                                        return;
+                                    }
+                                    else
+                                    {
+
+                                        switch (m_lastBoxType)
+                                        {
+                                            case BoxType.Normal:
+                                            case BoxType.Wall:
+                                                if (m_rectangles[widthTrav][heightTrav].boxType == m_lastBoxType)
+                                                {
+                                                    m_rectangles[widthTrav][heightTrav].SwitchBox();
+                                                    m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
+                                                    this.Invalidate();
+                                                }
+                                                break;
+                                            case BoxType.Start:
+                                                m_lastBoxSelect.SetNormalBox();
+                                                m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
+                                                m_lastBoxSelect.SetStartBox();
+                                                this.Invalidate();
+                                                break;
+                                            case BoxType.End:
+                                                m_lastBoxSelect.SetNormalBox();
+                                                m_lastBoxSelect = m_rectangles[widthTrav][heightTrav];
+                                                m_lastBoxSelect.SetEndBox();
+                                                this.Invalidate();
+                                                break;
+                                        }
 
 
+                                    }
+                                }
+
+
+                            }
                         }
                     }
+
                 }
-              
+
+                Redraw();
             }
-            Redraw();
         }
 
         private void Form1_MouseDown(object sender, MouseEventArgs e)
         {
+            isMouseDown = true;
             if (e.Button == MouseButtons.Left)
             {
                 for (int widthTrav = 0; widthTrav < width; widthTrav++)
