@@ -78,17 +78,11 @@ namespace MultiThreadingAStar
 
                 var neighbors = grid.GetNeighbors(node);
 
-#if (UNITY)
-                foreach(var neighbor in neighbors)
-#else
+
                 Parallel.ForEach(neighbors, neighbor =>
-#endif
                 {
-#if (UNITY)
-                    if (neighbor.isClosed) continue;
-#else
                     if (neighbor.isClosed) return;
-#endif
+
                     var x = neighbor.x;
                     var y = neighbor.y;
                     float ng = node.startToCurNodeLen + (float)((x - node.x == 0 || y - node.y == 0) ? 1 : Math.Sqrt(2));
@@ -113,9 +107,7 @@ namespace MultiThreadingAStar
                         }
                     }
                 }
-#if (!UNITY)
                 );
-#endif
             }
             return new List<GridPos>();
 
