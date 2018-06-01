@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultithreadingAStar", "MultithreadingAStar.csproj", "{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|Mixed Platforms = Debug|Mixed Platforms
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|Mixed Platforms = Release|Mixed Platforms
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Debug|Any CPU.ActiveCfg = Debug|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Debug|Mixed Platforms.ActiveCfg = Debug|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Debug|Mixed Platforms.Build.0 = Debug|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Debug|x86.ActiveCfg = Debug|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Debug|x86.Build.0 = Debug|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Release|Any CPU.ActiveCfg = Release|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Release|Mixed Platforms.ActiveCfg = Release|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Release|Mixed Platforms.Build.0 = Release|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Release|x86.ActiveCfg = Release|x86
+		{82FE700A-0BA3-49D0-ACE0-C1F87FBE5021}.Release|x86.Build.0 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {92600EAF-152F-4794-AA31-32E4FF11181C}
+	EndGlobalSection
+EndGlobal

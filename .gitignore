@@ -1,8 +1,8 @@
 #Products
-/kagv/bin/*
+/MultithreadingAStar/bin/*
 /kagv/obj/*
 *.suo
 \#*#
-.vs/kagv/v15/sqlite3/storage.ide
-.vs/kagv/v15/.suo
-.vs/kagv/v15/*
+.vs/MultithreadingAStar/v15/sqlite3/storage.ide
+.vs/MultithreadingAStar/v15/.suo
+.vs/MultithreadingAStar/v15/*

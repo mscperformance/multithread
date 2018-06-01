@@ -1,0 +1,11 @@
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\MultithreadingAStar.csprojAssemblyReference.cache
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\MultiThreadingAStar.SearchGridForm.resources
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\Multithreading_Astar.Properties.Resources.resources
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\MultithreadingAStar.csproj.GenerateResource.cache
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\MultithreadingAStar.csproj.CoreCompileInputs.cache
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\Multithreading_Astar.exe
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\Multithreading_Astar.pdb
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\bin\Debug\Multithreading_Astar.exe
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\bin\Debug\Multithreading_Astar.pdb
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\bin\Debug\C5.dll
+C:\Users\admin\Desktop\github\multithread\MultithreadingAStar\obj\x86\Debug\MultithreadingAStar.csproj.CopyComplete
