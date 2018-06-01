@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace MultiThreadingAStar
+﻿namespace MultiThreadingAStar
 {
     public delegate float HeuristicDelegate(int iDx, int iDy);
 

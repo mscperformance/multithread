@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-
-namespace MultiThreadingAStar
+﻿namespace MultiThreadingAStar
 {
     public class StaticGrid : BaseGrid
     {

@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections;
-
 namespace MultiThreadingAStar
 {
     public enum HeuristicMode
