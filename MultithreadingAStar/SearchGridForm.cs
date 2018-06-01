@@ -7,7 +7,8 @@ namespace MultiThreadingAStar
     public partial class SearchGridForm : Form
     {
         bool isMouseDown;
-        
+        bool isMultiThreading=true;
+
         const int width = 64;
         const int height = 32;
         Graphics paper;
@@ -21,41 +22,45 @@ namespace MultiThreadingAStar
 
         BaseGrid searchGrid;
         AStarParam jumpParam;
-        public SearchGridForm()
+
+        private void init()
         {
-   
-            InitializeComponent();
             DoubleBuffered = true;
-        
+
             m_resultBox = new List<ResultBox>();
-            Width = (width+1) * 20;
-            Height = (height+1) * 20 +100;
+            Width = (width + 1) * 20;
+            Height = (height + 1) * 20 + 100;
             MaximumSize = new Size(Width, Height);
             MaximizeBox = false;
-   
+
             m_rectangles = new GridBox[width][];
             for (int widthTrav = 0; widthTrav < width; widthTrav++)
             {
                 m_rectangles[widthTrav] = new GridBox[height];
                 for (int heightTrav = 0; heightTrav < height; heightTrav++)
                 {
-                    if(widthTrav==(width/3) && heightTrav==(height/2))
+                    if (widthTrav == (width / 3) && heightTrav == (height / 2))
                         m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + 50, BoxType.Start);
                     else if (widthTrav == 41 && heightTrav == (height / 2))
-                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20 , heightTrav * 20 + 50, BoxType.End);
+                        m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + 50, BoxType.End);
                     else
                         m_rectangles[widthTrav][heightTrav] = new GridBox(widthTrav * 20, heightTrav * 20 + 50, BoxType.Normal);
 
 
                 }
             }
-          
+
 
             m_resultLine = new List<GridLine>();
 
-            searchGrid = new StaticGrid(width, height);
+            searchGrid = new StaticGrid (width, height);
 
             jumpParam = new AStarParam(searchGrid, 50, HeuristicMode.EUCLIDEAN);
+        }
+        public SearchGridForm()
+        {
+            InitializeComponent();
+            init();
           
         }
 
@@ -108,7 +113,7 @@ namespace MultiThreadingAStar
             {
                 m_lastBoxSelect = null;
             }
-            Redraw();
+         //   Redraw();
 
         }
 
@@ -199,7 +204,7 @@ namespace MultiThreadingAStar
 
                 }
 
-                Redraw();
+              //  Redraw();
             }
         }
 
@@ -242,6 +247,13 @@ namespace MultiThreadingAStar
 
         private void Redraw()
         {
+            foreach (GridLine l in m_resultLine) l.Dispose(); 
+            m_resultLine = new List<GridLine>();
+            List<GridPos> resultList = new List<GridPos>();
+            searchGrid = new StaticGrid(width, height);
+            jumpParam = new AStarParam(searchGrid, 50, HeuristicMode.EUCLIDEAN);
+            Invalidate();
+
             for (int resultTrav = 0; resultTrav < m_resultLine.Count; resultTrav++)
             {
 
@@ -254,7 +266,7 @@ namespace MultiThreadingAStar
                 m_resultBox[resultTrav].Dispose();
             }
             m_resultBox.Clear();
-
+            
             GridPos startPos = new GridPos();
             GridPos endPos = new GridPos();
             for (int widthTrav = 0; widthTrav < width; widthTrav++)
@@ -282,8 +294,18 @@ namespace MultiThreadingAStar
 
                 }
             }
+            System.Diagnostics.Stopwatch s = new System.Diagnostics.Stopwatch();
+            s.Start();
             jumpParam.Reset(startPos, endPos);
-            List<GridPos> resultList = AStarFinder.FindPath(jumpParam);
+            resultList = AStarFinder.FindPath(jumpParam,isMultiThreading);
+            double time = s.ElapsedMilliseconds;
+            s.Reset();
+            
+
+            if (isMultiThreading)
+                lb_multi.Text = "Time elapsed with multithreading: " + time + " ms.";
+            else
+                lb_multi.Text = "Time elapsed without multithreading: " + time + " ms.";
 
             for (int resultTrav = 0; resultTrav < resultList.Count - 1; resultTrav++)
             {
@@ -310,7 +332,45 @@ namespace MultiThreadingAStar
             Invalidate();
         }
 
-      
 
+        private void CleanPath()
+        {
+            for (int resultTrav = 0; resultTrav < m_resultLine.Count; resultTrav++)
+            {
+
+                m_resultLine[resultTrav].Dispose();
+            }
+            m_resultLine.Clear();
+
+            for (int resultTrav = 0; resultTrav < m_resultBox.Count; resultTrav++)
+            {
+                m_resultBox[resultTrav].Dispose();
+            }
+
+            m_resultBox.Clear();
+            m_resultBox = new List<ResultBox>();
+            this.Invalidate();
+        }
+        private void btn_benchmark_Click(object sender, System.EventArgs e)
+        {
+            CleanPath();
+            MessageBox.Show("Press OK to start the benchmarking");
+            Redraw();
+        }
+
+        private void cb_multi_CheckedChanged(object sender, System.EventArgs e)
+        {
+            if (cb_multi.Checked)
+            {
+                lb_multi.Text = "Time elapsed with multithreading:";
+                isMultiThreading = true;
+            }
+            else
+            {
+                lb_multi.Text = "Time elapsed without multithreading:";
+                isMultiThreading = false;
+            }
+          
+        }
     }
 }
