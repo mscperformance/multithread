@@ -25,7 +25,7 @@ namespace MultiThreadingAStar
         BoxType m_lastBoxType;
 
         BaseGrid searchGrid;
-        JumpPointParam jumpParam;
+        AStarParam jumpParam;
         public SearchGridForm()
         {
    
@@ -62,10 +62,8 @@ namespace MultiThreadingAStar
             // searchGrid = new DynamicGrid();
             //searchGrid = new DynamicGridWPool(SingletonHolder<NodePool>.Instance);
 
-            jumpParam = new JumpPointParam(searchGrid, EndNodeUnWalkableTreatment.ALLOW, HeuristicMode.EUCLIDEAN)
-            {
-                CurIterationType = IterationType.LOOP
-            };
+            jumpParam = new AStarParam(searchGrid, 50, HeuristicMode.EUCLIDEAN);
+          
         }
 
 
@@ -285,7 +283,7 @@ namespace MultiThreadingAStar
                 }
             }
             jumpParam.Reset(startPos, endPos);
-            List<GridPos> resultList = JumpPointFinder.FindPath(jumpParam);
+            List<GridPos> resultList = AStarFinder.FindPath(jumpParam);
 
             for (int resultTrav = 0; resultTrav < resultList.Count - 1; resultTrav++)
             {
