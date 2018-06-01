@@ -49,7 +49,7 @@
             this.Controls.Add(this.btn_benchmark);
             this.MaximizeBox = false;
             this.Name = "SearchGridForm";
-            this.Text = "EpPathFinding.cs Demo";
+            this.Text = "Multithreading AStar";
             this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseDown);
             this.MouseMove += new System.Windows.Forms.MouseEventHandler(this.Form1_MouseMove);
